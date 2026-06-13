@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>מגן השריר: GLP-1 - משחק אינטראקטיבי</title>
+    
+    <!-- Google Fonts for Hebrew Rubik and English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background glowing orbs for premium visual aesthetic -->
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-green"></div>
+
+    <div class="game-container">
+        <!-- HEADER -->
+        <header class="game-header">
+            <div class="brand">
+                <div class="icon-glow">
+                    <svg class="header-icon" viewBox="0 0 24 24" width="28" height="28">
+                        <!-- Shield and Muscle Arm composite SVG -->
+                        <path fill="currentColor" d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7A3,3 0 0,1 15,10C15,11.3 14.18,12.42 13,12.85V15H15V17H9V15H11V12.85C9.82,12.42 9,11.3 9,10A3,3 0 0,1 12,7M12,8.5A1.5,1.5 0 0,0 10.5,10A1.5,1.5 0 0,0 12,11.5A1.5,1.5 0 0,0 13.5,10A1.5,1.5 0 0,0 12,8.5Z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1>מגן השריר <span class="badge-glp1">GLP-1</span></h1>
+                    <p class="subtitle">הקרב על הבריאות המטבולית</p>
+                </div>
+            </div>
+            
+            <button id="info-btn" class="icon-btn" aria-label="הוראות משחק">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="currentColor" d="M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,6A4,4 0 0,0 8,10H10A2,2 0 0,1 12,8A2,2 0 0,1 14,10C14,12 11,11.75 11,15H13C13,12.75 16,12.5 16,10A4,4 0 0,0 12,6Z"/>
+                </svg>
+            </button>
+        </header>
+
+        <!-- DASHBOARD (Visible during gameplay) -->
+        <section id="dashboard" class="dashboard hidden">
+            <!-- Muscle Mass Meter -->
+            <div class="meter-card">
+                <div class="meter-label">
+                    <span class="meter-title">
+                        <svg viewBox="0 0 24 24" width="16" height="16" class="text-green">
+                            <path fill="currentColor" d="M21,13.7C19.7,13.7 18.6,13 18,12C17.4,11 17.4,9.7 18,8.7C18.4,8 18.4,7.1 18,6.4L16,3L14.3,4L15.7,6.4C16.3,7.4 16.3,8.6 15.7,9.6C15.1,10.6 14,11.3 12.7,11.3H12V13.3H12.7C13.5,13.3 14.3,13.7 14.7,14.4L17.7,19.6C18.1,20.3 18.1,21.2 17.7,21.9L16,24.8L17.7,25.8L19.4,22.9C20.6,22.9 21.7,23.6 22.3,24.6L23.7,23.8L22.3,21.4C21.7,20.4 21.7,19.2 22.3,18.2C22.9,17.2 24,16.5 25.3,16.5H26V14.5H25.3C24.5,14.5 23.7,14.1 23.3,13.4L20.3,8.2C19.9,7.5 19.9,6.6 20.3,5.9L22,3L20.3,2L18.9,4.4C18.3,5.4 18.3,6.6 18.9,7.6C19.5,8.6 20.6,9.3 21.9,9.3H22.6V11.3H21.9C21.1,11.3 20.3,11.7 19.9,12.4L16.9,17.6C16.5,18.3 16.5,19.2 16.9,19.9L18.6,22.8L16.9,23.8L15.2,20.9C14,20.9 12.9,20.2 12.3,19.2L10.9,20L12.3,22.4C12.9,23.4 12.9,24.6 12.3,25.6C11.7,26.6 10.6,27.3 9.3,27.3H8.6V29.3H9.3C10.1,29.3 10.9,29.7 11.3,30.4L14.3,35.6C14.7,36.3 14.7,37.2 14.3,37.9L12.6,40.8L14.3,41.8L16,38.9C17.2,38.9 18.3,39.6 18.9,40.6L20.3,39.8L18.9,37.4C18.3,36.4 18.3,35.2 18.9,34.2C19.5,33.2 20.6,32.5 21.9,32.5H22.6V30.5H21.9C21.1,30.5 20.3,30.1 19.9,29.4L16.9,24.2C16.5,23.5 16.5,22.6 16.9,21.9L18.6,19L16.9,18L15.2,20.9C14,20.9 12.9,20.2 12.3,19.2L10.9,20" />
+                            <!-- Simpler Arm Path if the above complex path is clipped -->
+                            <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A2,2 0 0,1 14,6C14,7.25 12,9 12,9C12,9 10,7.25 10,6A2,2 0 0,1 12,4M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M11,10H13V15H11V10Z" style="display:none;"/>
+                            <!-- standard muscle path -->
+                            <path fill="currentColor" d="M7.5,17.5C6.12,17.5 5,16.38 5,15C5,12.56 9,8 9,8C9,8 13,12.56 13,15C13,16.38 11.88,17.5 10.5,17.5C9.67,17.5 9,17 9,17C9,17 8.33,17.5 7.5,17.5M17.5,17.5C16.12,17.5 15,16.38 15,15C15,12.56 19,8 19,8C19,8 23,12.56 23,15C23,16.38 21.88,17.5 20.5,17.5C19.67,17.5 19,17 19,17C19,17 18.33,17.5 17.5,17.5M12.5,11.5C11.12,11.5 10,10.38 10,9C10,6.56 14,2 14,2C14,2 18,6.56 18,9C18,10.38 16.88,11.5 15.5,11.5C14.67,11.5 14,11 14,11C14,11 13.33,11.5 12.5,11.5Z" style="display: none;"/>
+                            <!-- Standard easy arm path -->
+                            <path fill="currentColor" d="M21,12C21,9.9 20,8 18.4,6.8L17,8.2C18.2,9.1 19,10.5 19,12C19,13.5 18.2,14.9 17,15.8L18.4,17.2C20,16 21,14.1 21,12M3,12C3,14.1 4,16 5.6,17.2L7,15.8C5.8,14.9 5,13.5 5,12C5,10.5 5.8,9.1 7,8.2L5.6,6.8C4,8 3,9.9 3,12M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z"/>
+                        </svg>
+                        מסת שריר
+                    </span>
+                    <span id="muscle-val" class="meter-value text-green">100%</span>
+                </div>
+                <div class="progress-track">
+                    <div id="muscle-bar" class="progress-fill fill-green" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Fat Mass / Weight Loss Meter -->
+            <div class="meter-card">
+                <div class="meter-label">
+                    <span class="meter-title">
+                        <svg viewBox="0 0 24 24" width="16" height="16" class="text-orange">
+                            <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/>
+                        </svg>
+                        איבוד שומן (יעד)
+                    </span>
+                    <span id="fat-val" class="meter-value text-orange">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div id="fat-bar" class="progress-fill fill-orange" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <!-- Shield/Defense Power -->
+            <div class="meter-card">
+                <div class="meter-label">
+                    <span class="meter-title">
+                        <svg viewBox="0 0 24 24" width="16" height="16" class="text-purple">
+                            <path fill="currentColor" d="M12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22M12,20V12H19C19,15.87 15.87,19 12,20Z"/>
+                        </svg>
+                        חומת מגן שריר
+                    </span>
+                    <span id="shield-val" class="meter-value text-purple">0%</span>
+                </div>
+                <div class="progress-track">
+                    <div id="shield-bar" class="progress-fill fill-purple" style="width: 0%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-card">
+            <!-- SCREEN 1: START SCREEN -->
+            <section id="start-screen" class="screen active">
+                <div class="center-content">
+                    <div class="hero-graphic">
+                        <!-- Custom animated modern graphic: Shield protecting a muscle arm -->
+                        <div class="glow-ring"></div>
+                        <svg class="hero-svg" viewBox="0 0 24 24" width="100" height="100">
+                            <defs>
+                                <linearGradient id="shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#a855f7" />
+                                    <stop offset="100%" stop-color="#10b981" />
+                                </linearGradient>
+                            </defs>
+                            <path fill="url(#shield-grad)" d="M12,2L1,5V11C1,18.55 5.7,25.29 12,27C18.3,25.29 23,18.55 23,11V5L12,2M12,4.8C16.8,6.2 20.6,11.3 20.8,17C18.6,18.4 15.6,19.2 12,19.2C8.4,19.2 5.4,18.4 3.2,17C3.4,11.3 7.2,6.2 12,4.8M12,8A3,3 0 0,0 9,11C9,12.3 9.8,13.4 11,13.8V16H13V13.8C14.2,13.4 15,12.3 15,11A3,3 0 0,0 12,8Z" />
+                        </svg>
+                    </div>
+
+                    <h2 class="welcome-title">הידעת?</h2>
+                    <p class="welcome-text">
+                        תרופות מקבוצת <strong>GLP1-RA</strong> (כגון אוזמפיק, ויגובי, מונג'רו) הן מהפיכה רפואית בירידה במשקל ובאיזון סוכרת. 
+                        אך ללא הדרכה נכונה, <strong>עד 40% מהמשקל שיורד עלול להיות מסת שריר יקרה!</strong>
+                    </p>
+                    <p class="welcome-text-highlight">
+                        היכנס/י למשחק, בחר/י את הגיבור/ה שלך, והגן/י על מסת השריר שלך מפני שחיקה!
+                    </p>
+
+                    <!-- Avatar Selection -->
+                    <div class="avatar-selection">
+                        <h3>בחר/י את מגן השריר שלך:</h3>
+                        <div class="avatar-grid">
+                            <div class="avatar-card active" data-avatar="protein">
+                                <div class="avatar-emoji">🥩</div>
+                                <div class="avatar-name">אלוף החלבון</div>
+                                <div class="avatar-desc">בונה מגנים מבוססי תזונה</div>
+                            </div>
+                            <div class="avatar-card" data-avatar="lift">
+                                <div class="avatar-emoji">🏋️‍♂️</div>
+                                <div class="avatar-name">מאמנת הכוח</div>
+                                <div class="avatar-desc">מקדמת אימוני התנגדות</div>
+                            </div>
+                            <div class="avatar-card" data-avatar="science">
+                                <div class="avatar-emoji">🔬</div>
+                                <div class="avatar-name">חוקר המטבוליזם</div>
+                                <div class="avatar-desc">מבין את המדע מאחורי GLP-1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="start-game-btn" class="btn btn-primary pulse-effect">
+                        <span>התחל במשחק!</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCREEN 2: GAME SCREEN (QUIZ) -->
+            <section id="game-screen" class="screen hidden">
+                <!-- Question Card -->
+                <div class="question-container">
+                    <div class="question-header">
+                        <span id="question-index" class="q-badge">שאלה 1 מתוך 4</span>
+                        <div class="shield-indicator" id="shield-indicator">
+                            <!-- Floating shield icon -->
+                            <svg viewBox="0 0 24 24" width="20" height="20">
+                                <path fill="currentColor" d="M12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22M12,20V12H19C19,15.87 15.87,19 12,20Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <h3 id="question-text" class="question-text">טוען שאלה...</h3>
+                    
+                    <div id="options-container" class="options-container">
+                        <!-- Options injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Feedback Panel (Rises from bottom when answer selected) -->
+                <div id="feedback-panel" class="feedback-panel hidden">
+                    <div class="feedback-content">
+                        <div class="feedback-icon-container">
+                            <div id="feedback-icon" class="feedback-icon"></div>
+                        </div>
+                        <div class="feedback-text-container">
+                            <h4 id="feedback-title">נכון מאוד!</h4>
+                            <p id="feedback-desc">הסבר קצר ומעמיק מופיע כאן.</p>
+                        </div>
+                    </div>
+                    <button id="next-question-btn" class="btn btn-next">
+                        <span>המשך לשלב הבא</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SCREEN 3: FINISH SCREEN -->
+            <section id="finish-screen" class="screen hidden">
+                <div class="center-content">
+                    <div class="finish-graphic">
+                        <div class="trophy-glow"></div>
+                        <span class="badge-icon">🏆</span>
+                    </div>
+
+                    <h2 id="finish-title" class="finish-title">כל הכבוד! הגעת ליעד!</h2>
+                    <p class="finish-text">
+                        השלמת את הטיפול בהצלחה. בוא נראה איך הנתונים המטבוליים שלך נראים:
+                    </p>
+
+                    <!-- Score Card Grid -->
+                    <div class="score-grid">
+                        <div class="score-card">
+                            <div class="score-emoji">💪</div>
+                            <span class="score-label">מסת שריר שנשמרה</span>
+                            <span id="final-muscle" class="score-number text-green">100%</span>
+                        </div>
+                        <div class="score-card">
+                            <div class="score-emoji">🔥</div>
+                            <span class="score-label">אחוזי שומן שירדו</span>
+                            <span id="final-fat" class="score-number text-orange">25%</span>
+                        </div>
+                        <div class="score-card full-width">
+                            <div class="score-emoji">🏅</div>
+                            <span class="score-label">התואר המטבולי שלך</span>
+                            <span id="final-badge" class="score-badge">מגן שרירים מוסמך</span>
+                        </div>
+                    </div>
+
+                    <!-- Expert Advice Summary -->
+                    <div class="advice-panel">
+                        <h4>טיפ זהב להמשך הדרך:</h4>
+                        <p id="advice-text">
+                            כדי לשמור על ההישגים לאורך זמן תחת טיפול ב-GLP1-RA, הקפד/י על ביצוע לפחות שני אימוני כוח בשבוע וצריכת חלבון מספקת בכל ארוחה.
+                        </p>
+                    </div>
+
+                    <button id="restart-game-btn" class="btn btn-primary">
+                        <span>שחק שוב</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- INFO MODAL -->
+        <div id="info-modal" class="modal hidden">
+            <div class="modal-content glass-card">
+                <div class="modal-header">
+                    <h3>מדריך מגן השריר</h3>
+                    <button id="close-modal-btn" class="icon-btn">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>איך משחקים?</strong></p>
+                    <ul>
+                        <li>בכל שלב תידרש/י לענות על שאלה בנושא טיפול ב-GLP-1 ושמירה על מסת שריר.</li>
+                        <li>תשובה נכונה תעניק לך נקודות <strong>לחומי המגן</strong>, תפחית <strong>שומן</strong> ותגן על ה<strong>שרירים</strong> שלך.</li>
+                        <li>תשובה לא נכונה תגרום ל<strong>איבוד מסת שריר</strong>!</li>
+                        <li>המטרה: להגיע לסוף המשחק עם מעל 80% מסת שריר ומקסימום אחוזי שומן שירדו.</li>
+                    </ul>
+                    <p><strong>למה זה חשוב?</strong></p>
+                    <p>
+                        איבוד שריר (סרקופניה) מאט את קצב חילוף החומרים ויכול לגרום לעייפות וירידה בתפקוד היומי. ידע הוא כלי ההגנה הטוב ביותר שלך!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONFETTI CANVAS -->
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+    </div>
+
+    <!-- Script file -->
+    <script src="app.js"></script>
+</body>
+</html>

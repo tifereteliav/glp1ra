@@ -61,8 +61,37 @@
 
         <!-- MAIN CONTENT AREA -->
         <main class="main-card">
+            <!-- SCREEN 0: PASSCODE SCREEN -->
+            <section id="passcode-screen" class="screen active">
+                <div class="center-content">
+                    <div class="hero-graphic" style="margin-bottom: 24px;">
+                        <div class="glow-ring"></div>
+                        <!-- Futuristic Lock Icon SVG -->
+                        <svg viewBox="0 0 24 24" width="90" height="90" class="hero-svg text-purple" style="filter: drop-shadow(0 0 12px var(--purple-glow)); margin: 0 auto; display: block;">
+                            <path fill="currentColor" d="M18,8H17V6A5,5 0 0,0 12,1A5,5 0 0,0 7,6V8H6A2,2 0 0,0 4,10V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V10A2,2 0 0,0 18,8M9,6A3,3 0 0,1 12,3A3,3 0 0,1 15,6V8H9V6M12,17A1.5,1.5 0 1,1 13.5,15.5A1.5,1.5 0 0,1 12,17Z"/>
+                        </svg>
+                    </div>
+
+                    <h2 class="welcome-title">שער כניסה לאתגר</h2>
+                    <p class="welcome-text">הזן/י את קוד הגישה האישי שקיבלת כדי לפתוח את האתגר המטבולי.</p>
+
+                    <div class="passcode-container">
+                        <h3>קוד גישה:</h3>
+                        <input type="tel" id="passcode-input" placeholder="הכנס קוד כניסה" maxlength="4" autocomplete="off">
+                        <p id="passcode-error" class="passcode-error hidden">⚠️ קוד כניסה שגוי! נסה שוב.</p>
+                    </div>
+
+                    <button id="verify-passcode-btn" class="btn btn-primary pulse-effect" style="margin-top: 10px;">
+                        <span>הכנס לאתגר</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path fill="currentColor" d="M10,17L15,12L10,7V17Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
             <!-- SCREEN 1: START SCREEN -->
-            <section id="start-screen" class="screen active">
+            <section id="start-screen" class="screen hidden">
                 <div class="center-content">
                     <div class="hero-graphic">
                         <div class="glow-ring"></div>
@@ -100,14 +129,7 @@
                         </div>
                     </div>
 
-                    <!-- Passcode Identification -->
-                    <div class="passcode-container">
-                        <h3>קוד כניסה לאתגר:</h3>
-                        <input type="tel" id="passcode-input" placeholder="הכנס קוד (4 ספרות)" maxlength="4" autocomplete="off">
-                        <p id="passcode-error" class="passcode-error hidden">⚠️ קוד כניסה שגוי! נסה שוב.</p>
-                    </div>
-
-                    <button id="start-game-btn" class="btn btn-primary pulse-effect">
+                    <button id="start-game-btn" class="btn btn-primary pulse-effect" style="margin-top: 20px;">
                         <span>התחל באתגר!</span>
                         <svg viewBox="0 0 24 24" width="20" height="20">
                             <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z"/>

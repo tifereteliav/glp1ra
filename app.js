@@ -79,7 +79,7 @@ const questions = [
 
 // Avatar config
 const avatarEmojis = {
-    protein: { normal: '🥩', correct: '🤔', incorrect: '🤔' }, // Static face during quiz to hide correct answers
+    protein: { normal: '🥩', correct: '🤔', incorrect: '🤔' },
     lift: { normal: '🏋️‍♂️', correct: '🤔', incorrect: '🤔' },
     science: { normal: '🔬', correct: '🤔', incorrect: '🤔' }
 };
@@ -98,7 +98,7 @@ let state = {
     answersCorrect: 0
 };
 
-// Soft neutral keyclick sound using Web Audio API (No ding/buzz to avoid leak)
+// Soft neutral keyclick sound using Web Audio API
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(type) {
@@ -114,7 +114,6 @@ function playSound(type) {
     const now = audioCtx.currentTime;
     
     if (type === 'select') {
-        // Soft neutral click beep
         osc.type = 'sine';
         osc.frequency.setValueAtTime(350, now);
         gainNode.gain.setValueAtTime(0.08, now);
@@ -122,7 +121,6 @@ function playSound(type) {
         osc.start(now);
         osc.stop(now + 0.15);
     } else if (type === 'complete') {
-        // Fun celebratory fanfare at the very end
         osc.type = 'sine';
         const notes = [523.25, 659.25, 783.99, 1046.50];
         notes.forEach((freq, idx) => {
@@ -139,7 +137,8 @@ function playSound(type) {
     }
 }
 
-// UI Elements Cache
+// UI Screens Cache
+const passcodeScreen = document.getElementById("passcode-screen");
 const startScreen = document.getElementById("start-screen");
 const gameScreen = document.getElementById("game-screen");
 const finishScreen = document.getElementById("finish-screen");
@@ -231,16 +230,15 @@ function animateConfetti() {
 // Update HUD Progress
 function updateHUD() {
     const totalQuestions = questions.length;
-    // Calculate progress percentage based on current question index
     const progressPercent = Math.round((state.currentQuestionIndex / totalQuestions) * 100);
     
     challengeProgressBar.style.width = `${progressPercent}%`;
     challengeProgressVal.textContent = `שאלה ${state.currentQuestionIndex + 1} מתוך ${totalQuestions}`;
 }
 
-// Transition helper
+// Transition helper between screens
 function showScreen(screenToShow) {
-    [startScreen, gameScreen, finishScreen].forEach(s => {
+    [passcodeScreen, startScreen, gameScreen, finishScreen].forEach(s => {
         s.classList.remove('active');
         s.classList.add('hidden');
     });
@@ -259,15 +257,14 @@ document.querySelectorAll(".avatar-card").forEach(card => {
     });
 });
 
-// START GAME & PASSCODE VERIFICATION
-document.getElementById("start-game-btn").addEventListener("click", () => {
+// VERIFY PASSCODE (Transition from Screen 0 to Screen 1)
+document.getElementById("verify-passcode-btn").addEventListener("click", () => {
     const passcodeVal = document.getElementById("passcode-input").value.trim();
     const errorEl = document.getElementById("passcode-error");
     const inputEl = document.getElementById("passcode-input");
     
     if (passcodeVal !== "5656") {
         errorEl.classList.remove("hidden");
-        // Shake input field for feedback
         inputEl.style.borderColor = "var(--red)";
         inputEl.style.boxShadow = "0 0 15px var(--red-glow)";
         inputEl.classList.add("shake");
@@ -275,16 +272,23 @@ document.getElementById("start-game-btn").addEventListener("click", () => {
         return;
     }
     
+    // Clear inputs and error
+    errorEl.classList.add("hidden");
+    inputEl.style.borderColor = "var(--border-color)";
+    inputEl.style.boxShadow = "none";
+    inputEl.value = ""; 
+
+    // Sound and show welcome screen
+    playSound('select');
+    showScreen(startScreen);
+});
+
+// START GAME (Transition from Screen 1 to Screen 2)
+document.getElementById("start-game-btn").addEventListener("click", () => {
     // Reset state values
     state.muscleMass = 100;
     state.currentQuestionIndex = 0;
     state.answersCorrect = 0;
-
-    // Reset error classes
-    errorEl.classList.add("hidden");
-    inputEl.style.borderColor = "var(--border-color)";
-    inputEl.style.boxShadow = "none";
-    inputEl.value = ""; // Clear input for next time
 
     // Set Active Avatar Badge
     activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
@@ -340,7 +344,7 @@ function loadQuestion(index) {
     });
 }
 
-// HANDLE ANSWER (No correct/incorrect reveals to user)
+// HANDLE ANSWER (No correctness leakage to user)
 function handleAnswer(selectedIndex) {
     const q = questions[state.currentQuestionIndex];
     const optionButtons = document.querySelectorAll(".option-btn");
@@ -349,23 +353,19 @@ function handleAnswer(selectedIndex) {
     
     const isCorrect = selectedIndex === q.correctIndex;
     
-    // Play neutral select sound
     playSound('select');
 
     if (isCorrect) {
         state.answersCorrect++;
     }
 
-    // Highlight the selected option only with a neutral style (no green/red)
     optionButtons[selectedIndex].classList.add("selected");
     
-    // Slide up neutral feedback panel
     feedbackTitle.textContent = "התשובה נקלטה! 📥";
     feedbackTitle.style.color = "var(--purple)";
     feedbackIcon.textContent = "📝";
     feedbackDesc.innerHTML = "תשובתך נשמרה בהצלחה במערכת האתגר.<br>לחץ/י על כפתור ההמשך כדי להתקדם לשאלה הבאה.";
     
-    // Update progress bar to reflect this question is answered
     const totalQuestions = questions.length;
     const progressPercent = Math.round(((state.currentQuestionIndex + 1) / totalQuestions) * 100);
     challengeProgressBar.style.width = `${progressPercent}%`;
@@ -389,10 +389,8 @@ function finishGame() {
     dashboard.classList.add('hidden');
     showScreen(finishScreen);
     
-    // Set score display
     document.getElementById("final-muscle").textContent = `${state.answersCorrect} / ${questions.length}`;
     
-    // Code validation and insertion
     const codeEl = document.getElementById("finish-code-val");
     const codeInstructionsEl = document.querySelector(".code-instructions");
     
@@ -408,7 +406,6 @@ function finishGame() {
         codeInstructionsEl.style.color = "var(--orange)";
     }
     
-    // Custom final advice summary
     const adviceEl = document.getElementById("advice-text");
     adviceEl.innerHTML = `<strong>סיכום אתגר:</strong> כדי לשמור על בריאות מטבולית אופטימלית תחת טיפול ב-GLP1-RA, יש להקפיד על צריכת חלבון מספקת (1.2-1.5 גרם לק"ג), ביצוע אימוני כוח לפחות פעמיים בשבוע, והבנת ההשפעות הרב-מערכתיות של המולקולות (שיפור בפרופיל השומנים עם עליית HDL והטבה בדום נשימה בשינה).`;
     
@@ -416,20 +413,20 @@ function finishGame() {
     startConfetti();
 }
 
-// RESTART GAME
+// RESTART GAME (Lock back to passcode screen for conference kiosks)
 document.getElementById("restart-game-btn").addEventListener("click", () => {
     stopConfetti();
-    showScreen(startScreen);
+    showScreen(passcodeScreen);
 });
 
 // MODAL WINDOW CONTROL
 const infoModalText = document.querySelector("#info-modal .modal-body");
-// Change modal descriptions to match new rules
 if (infoModalText) {
     infoModalText.innerHTML = `
         <p><strong>איך משחקים?</strong></p>
         <ul>
-            <li>עליך להכניס את קוד הכניסה <strong>5656</strong> כדי להתחיל.</li>
+            <li>עליך להכניס את קוד הכניסה <strong>5656</strong> בשער הכניסה כדי לפתוח את האתגר.</li>
+            <li>במסך הבא, בחר/י את הגיבור/ה המטבולי/ת שלך.</li>
             <li>ענה/י על 7 שאלות מטבוליות וקליניות ברצף.</li>
             <li>התשובות יישמרו במערכת ולא ייחשפו במהלך המשחק (כדי לשמור על המתח!).</li>
             <li>בסיום תקבל/י קוד המבוסס על רמת ההצלחה שלך.</li>

@@ -79,9 +79,9 @@ const questions = [
 
 // Avatar config
 const avatarEmojis = {
-    protein: { normal: '🥩', correct: '🤔', incorrect: '🤔' },
-    lift: { normal: '🏋️‍♂️', correct: '🤔', incorrect: '🤔' },
-    science: { normal: '🔬', correct: '🤔', incorrect: '🤔' }
+    protein: { normal: '🥩' },
+    lift: { normal: '🏋️‍♂️' },
+    science: { normal: '🔬' }
 };
 
 const avatarNames = {
@@ -95,10 +95,11 @@ let state = {
     muscleMass: 100,
     currentQuestionIndex: 0,
     selectedAvatar: 'protein',
+    selectedOptionIndex: null, // Tracks currently selected answer before submitting
     answersCorrect: 0
 };
 
-// Soft neutral keyclick sound using Web Audio API
+// Sound synthesizer using Web Audio API
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(type) {
@@ -115,11 +116,11 @@ function playSound(type) {
     
     if (type === 'select') {
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(350, now);
-        gainNode.gain.setValueAtTime(0.08, now);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+        osc.frequency.setValueAtTime(380, now);
+        gainNode.gain.setValueAtTime(0.06, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
         osc.start(now);
-        osc.stop(now + 0.15);
+        osc.stop(now + 0.12);
     } else if (type === 'complete') {
         osc.type = 'sine';
         const notes = [523.25, 659.25, 783.99, 1046.50];
@@ -236,7 +237,7 @@ function updateHUD() {
     challengeProgressVal.textContent = `שאלה ${state.currentQuestionIndex + 1} מתוך ${totalQuestions}`;
 }
 
-// Transition helper between screens
+// Transition helper
 function showScreen(screenToShow) {
     [passcodeScreen, startScreen, gameScreen, finishScreen].forEach(s => {
         s.classList.remove('active');
@@ -257,7 +258,7 @@ document.querySelectorAll(".avatar-card").forEach(card => {
     });
 });
 
-// VERIFY PASSCODE (Transition from Screen 0 to Screen 1)
+// VERIFY PASSCODE
 document.getElementById("verify-passcode-btn").addEventListener("click", () => {
     const passcodeVal = document.getElementById("passcode-input").value.trim();
     const errorEl = document.getElementById("passcode-error");
@@ -272,25 +273,21 @@ document.getElementById("verify-passcode-btn").addEventListener("click", () => {
         return;
     }
     
-    // Clear inputs and error
     errorEl.classList.add("hidden");
     inputEl.style.borderColor = "var(--border-color)";
     inputEl.style.boxShadow = "none";
     inputEl.value = ""; 
 
-    // Sound and show welcome screen
     playSound('select');
     showScreen(startScreen);
 });
 
-// START GAME (Transition from Screen 1 to Screen 2)
+// START GAME
 document.getElementById("start-game-btn").addEventListener("click", () => {
-    // Reset state values
-    state.muscleMass = 100;
     state.currentQuestionIndex = 0;
     state.answersCorrect = 0;
+    state.selectedOptionIndex = null;
 
-    // Set Active Avatar Badge
     activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
     activeAvatarEmoji.className = "avatar-reaction-emoji";
     activeAvatarName.textContent = avatarNames[state.selectedAvatar];
@@ -304,20 +301,27 @@ document.getElementById("start-game-btn").addEventListener("click", () => {
 // LOAD QUESTION
 function loadQuestion(index) {
     const q = questions[index];
+    state.selectedOptionIndex = null; // Reset selection
+
     questionIndexBadge.textContent = `שאלה ${index + 1} מתוך ${questions.length}`;
     questionText.textContent = q.text;
     feedbackPanel.classList.add('hidden');
     
-    // Set normal avatar emoji
     activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
-    activeAvatarEmoji.classList.remove("excited");
 
-    // Display difficulty badge if present (Questions 5, 6, 7)
     if (q.difficulty) {
         difficultyBadge.textContent = q.difficulty;
         difficultyBadge.classList.remove("hidden");
     } else {
         difficultyBadge.classList.add("hidden");
+    }
+
+    // Set correct title text for next question/finish question button
+    const nextBtnText = document.querySelector("#next-question-btn span");
+    if (index === questions.length - 1) {
+        nextBtnText.textContent = "סיים את האתגר";
+    } else {
+        nextBtnText.textContent = "המשך לשאלה הבאה";
     }
 
     // Clear and build options
@@ -339,45 +343,55 @@ function loadQuestion(index) {
         button.appendChild(marker);
         button.appendChild(textSpan);
         
-        button.addEventListener("click", () => handleAnswer(idx));
+        button.addEventListener("click", () => handleSelectOption(idx));
         optionsContainer.appendChild(button);
     });
 }
 
-// HANDLE ANSWER (No correctness leakage to user)
-function handleAnswer(selectedIndex) {
-    const q = questions[state.currentQuestionIndex];
-    const optionButtons = document.querySelectorAll(".option-btn");
-    
-    optionButtons.forEach(btn => btn.disabled = true);
-    
-    const isCorrect = selectedIndex === q.correctIndex;
+// HANDLE OPTION SELECT (Does NOT submit, allows changing selection)
+function handleSelectOption(selectedIndex) {
+    state.selectedOptionIndex = selectedIndex;
     
     playSound('select');
 
-    if (isCorrect) {
-        state.answersCorrect++;
-    }
-
-    optionButtons[selectedIndex].classList.add("selected");
+    // Highlight the selected option only
+    const optionButtons = document.querySelectorAll(".option-btn");
+    optionButtons.forEach((btn, idx) => {
+        if (idx === selectedIndex) {
+            btn.classList.add("selected");
+        } else {
+            btn.classList.remove("selected");
+        }
+    });
     
-    feedbackTitle.textContent = "התשובה נקלטה! 📥";
+    // Slide up the panel to allow confirmation and next step
+    feedbackTitle.textContent = "הבחירה שלך סומנה! 📥";
     feedbackTitle.style.color = "var(--purple)";
     feedbackIcon.textContent = "📝";
-    feedbackDesc.innerHTML = "תשובתך נשמרה בהצלחה במערכת האתגר.<br>לחץ/י על כפתור ההמשך כדי להתקדם לשאלה הבאה.";
+    feedbackDesc.innerHTML = "ניתן לשנות את התשובה על ידי לחיצה על אפשרות אחרת,<br>או ללחוץ על הכפתור כדי להתקדם.";
     
-    const totalQuestions = questions.length;
-    const progressPercent = Math.round(((state.currentQuestionIndex + 1) / totalQuestions) * 100);
-    challengeProgressBar.style.width = `${progressPercent}%`;
-
     feedbackPanel.classList.remove('hidden');
 }
 
-// NEXT QUESTION / FINISH GAME
+// SUBMIT SELECTION AND GO NEXT
 document.getElementById("next-question-btn").addEventListener("click", () => {
+    if (state.selectedOptionIndex === null) return; // Prevent clicking if nothing is selected
+
+    // Score the question privately
+    const q = questions[state.currentQuestionIndex];
+    if (state.selectedOptionIndex === q.correctIndex) {
+        state.answersCorrect++;
+    }
+
+    // Go next
     state.currentQuestionIndex++;
     
     if (state.currentQuestionIndex < questions.length) {
+        // Update HUD progress bar based on questions answered
+        const totalQuestions = questions.length;
+        const progressPercent = Math.round((state.currentQuestionIndex / totalQuestions) * 100);
+        challengeProgressBar.style.width = `${progressPercent}%`;
+
         loadQuestion(state.currentQuestionIndex);
     } else {
         finishGame();
@@ -413,7 +427,7 @@ function finishGame() {
     startConfetti();
 }
 
-// RESTART GAME (Lock back to passcode screen for conference kiosks)
+// RESTART GAME (Lock back to passcode screen)
 document.getElementById("restart-game-btn").addEventListener("click", () => {
     stopConfetti();
     showScreen(passcodeScreen);
@@ -428,6 +442,7 @@ if (infoModalText) {
             <li>עליך להכניס את קוד הכניסה <strong>5656</strong> בשער הכניסה כדי לפתוח את האתגר.</li>
             <li>במסך הבא, בחר/י את הגיבור/ה המטבולי/ת שלך.</li>
             <li>ענה/י על 7 שאלות מטבוליות וקליניות ברצף.</li>
+            <li><strong>ניתן לשנות את בחירתך כל עוד לא לחצת על כפתור ההמשך!</strong></li>
             <li>התשובות יישמרו במערכת ולא ייחשפו במהלך המשחק (כדי לשמור על המתח!).</li>
             <li>בסיום תקבל/י קוד המבוסס על רמת ההצלחה שלך.</li>
         </ul>

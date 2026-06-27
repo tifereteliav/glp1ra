@@ -1,7 +1,7 @@
 // GLP-1 MUSCLE DEFENDER - GAME LOGIC
 
-// Game Questions Database by Zone
-const zone1Questions = [
+// Game Questions Database (7 Questions Sequential Flow)
+const questions = [
     {
         text: "מה מההיגדים הבאים לגבי הקשר בין בריאות השריר לסינדרום המטבולי נכון?",
         options: [
@@ -45,10 +45,7 @@ const zone1Questions = [
         ],
         correctIndex: 0, // Option A
         explanation: "מעולה! אימוני התנגדות מספקים גירוי מכני ישיר לשרירים המאותת לגוף שהם חיוניים, ובכך מונעים מהגוף להשתמש ברקמת השריר לצורכי אנרגיה."
-    }
-];
-
-const zone2Questions = [
+    },
     {
         text: "הטיפול במונג'רו בחולי סוכרת הביא במקביל לירידה בכל הבאים פרט ל:",
         options: [
@@ -102,8 +99,6 @@ const avatarNames = {
 
 // Game State variables
 let state = {
-    activeZone: 1, // 1: Muscle Defense, 2: Diabetes Conference
-    activeQuestions: zone1Questions,
     muscleMass: 100,
     fatLost: 0,
     shieldPower: 0,
@@ -112,7 +107,7 @@ let state = {
     answersCorrect: 0
 };
 
-// Sound synthesizer using Web Audio API (No files needed!)
+// Sound synthesizer using Web Audio API
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(type) {
@@ -128,16 +123,14 @@ function playSound(type) {
     const now = audioCtx.currentTime;
     
     if (type === 'success') {
-        // High pitch pleasant double chime
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(523.25, now); // C5
-        osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.1);
         gainNode.gain.setValueAtTime(0.15, now);
         gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
         osc.start(now);
         osc.stop(now + 0.3);
     } else if (type === 'error') {
-        // Low buzzing sliding tone
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(150, now);
         osc.frequency.exponentialRampToValueAtTime(80, now + 0.4);
@@ -146,9 +139,8 @@ function playSound(type) {
         osc.start(now);
         osc.stop(now + 0.4);
     } else if (type === 'complete') {
-        // Fun celebratory fanfare
         osc.type = 'sine';
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        const notes = [523.25, 659.25, 783.99, 1046.50];
         notes.forEach((freq, idx) => {
             const tempOsc = audioCtx.createOscillator();
             const tempGain = audioCtx.createGain();
@@ -176,15 +168,6 @@ const fatVal = document.getElementById("fat-val");
 const shieldBar = document.getElementById("shield-bar");
 const shieldVal = document.getElementById("shield-val");
 
-const lblMeter1Title = document.getElementById("lbl-meter-1-title");
-const lblMeter2Title = document.getElementById("lbl-meter-2-title");
-const lblMeter3Title = document.getElementById("lbl-meter-3-title");
-
-const finalMetric1Lbl = document.getElementById("final-metric-1-lbl");
-const finalMetric2Lbl = document.getElementById("final-metric-2-lbl");
-const finalEmoji1 = document.getElementById("final-emoji-1");
-const finalEmoji2 = document.getElementById("final-emoji-2");
-
 const activeAvatarEmoji = document.getElementById("active-avatar-emoji");
 const activeAvatarName = document.getElementById("active-avatar-name");
 const difficultyBadge = document.getElementById("difficulty-badge");
@@ -199,7 +182,7 @@ const feedbackIcon = document.getElementById("feedback-icon");
 
 const infoModal = document.getElementById("info-modal");
 
-// Confetti Particle System on Canvas
+// Confetti Particle System
 const canvas = document.getElementById("confetti-canvas");
 const ctx = canvas.getContext("2d");
 let confettiActive = false;
@@ -270,7 +253,6 @@ function updateHUD() {
     muscleBar.style.width = `${state.muscleMass}%`;
     muscleVal.textContent = `${state.muscleMass}%`;
     
-    // Smooth transitions for colors
     if (state.muscleMass < 60) {
         muscleBar.className = "progress-fill fill-orange";
         muscleVal.className = "meter-value text-orange";
@@ -289,7 +271,7 @@ function updateHUD() {
     shieldVal.textContent = `${state.shieldPower}%`;
 }
 
-// Transition helper between screens
+// Transition helper
 function showScreen(screenToShow) {
     [startScreen, gameScreen, finishScreen].forEach(s => {
         s.classList.remove('active');
@@ -300,16 +282,6 @@ function showScreen(screenToShow) {
         screenToShow.classList.add('active');
     }, 50);
 }
-
-// Zone selection UI logic
-document.querySelectorAll(".zone-card").forEach(card => {
-    card.addEventListener("click", () => {
-        document.querySelectorAll(".zone-card").forEach(c => c.classList.remove("active"));
-        card.classList.add("active");
-        state.activeZone = parseInt(card.dataset.zone);
-        state.activeQuestions = state.activeZone === 1 ? zone1Questions : zone2Questions;
-    });
-});
 
 // Avatar selection UI logic
 document.querySelectorAll(".avatar-card").forEach(card => {
@@ -329,20 +301,9 @@ document.getElementById("start-game-btn").addEventListener("click", () => {
     state.currentQuestionIndex = 0;
     state.answersCorrect = 0;
 
-    // Dynamically update HUD names based on Zone
-    if (state.activeZone === 1) {
-        lblMeter1Title.textContent = "מסת שריר";
-        lblMeter2Title.textContent = "איבוד שומן";
-        lblMeter3Title.textContent = "חומת מגן";
-    } else {
-        lblMeter1Title.textContent = "ידע קליני";
-        lblMeter2Title.textContent = "איזון סוכרת";
-        lblMeter3Title.textContent = "כוח מונג'רו";
-    }
-
     // Set Active Avatar Badge
     activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
-    activeAvatarEmoji.className = "avatar-reaction-emoji"; // Reset classes
+    activeAvatarEmoji.className = "avatar-reaction-emoji";
     activeAvatarName.textContent = avatarNames[state.selectedAvatar];
 
     updateHUD();
@@ -353,8 +314,8 @@ document.getElementById("start-game-btn").addEventListener("click", () => {
 
 // LOAD QUESTION
 function loadQuestion(index) {
-    const q = state.activeQuestions[index];
-    questionIndexBadge.textContent = `שאלה ${index + 1} מתוך ${state.activeQuestions.length}`;
+    const q = questions[index];
+    questionIndexBadge.textContent = `שאלה ${index + 1} מתוך ${questions.length}`;
     questionText.textContent = q.text;
     feedbackPanel.classList.add('hidden');
     
@@ -362,7 +323,7 @@ function loadQuestion(index) {
     activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
     activeAvatarEmoji.classList.remove("excited");
 
-    // Display difficulty badge if present (Zone 2)
+    // Display difficulty badge if present (Questions 5, 6, 7)
     if (q.difficulty) {
         difficultyBadge.textContent = q.difficulty;
         difficultyBadge.classList.remove("hidden");
@@ -377,14 +338,12 @@ function loadQuestion(index) {
         const button = document.createElement("button");
         button.className = "option-btn";
         
-        // Add Letter Marker
         const marker = document.createElement("div");
         marker.className = "option-marker";
         const letters = ["א", "ב", "ג", "ד"];
         marker.textContent = letters[idx];
         
         const textSpan = document.createElement("span");
-        // Extract content after the letter label if exists, else take full
         const textToDisplay = optText.includes('. ') ? optText.substring(3) : optText;
         textSpan.textContent = textToDisplay;
         
@@ -398,14 +357,14 @@ function loadQuestion(index) {
 
 // HANDLE ANSWER
 function handleAnswer(selectedIndex) {
-    const q = state.activeQuestions[state.currentQuestionIndex];
+    const q = questions[state.currentQuestionIndex];
     const optionButtons = document.querySelectorAll(".option-btn");
     
-    // Disable options
     optionButtons.forEach(btn => btn.disabled = true);
     
     const isCorrect = selectedIndex === q.correctIndex;
-    const progressIncrement = Math.round(100 / state.activeQuestions.length);
+    // 7 questions total, so progress increment is 14% per question (7 * 14 = 98 ~ 100%)
+    const progressIncrement = 14;
 
     if (isCorrect) {
         playSound('success');
@@ -419,6 +378,11 @@ function handleAnswer(selectedIndex) {
         state.fatLost = Math.min(100, state.fatLost + progressIncrement);
         state.shieldPower = Math.min(100, state.shieldPower + progressIncrement);
         
+        // On last question, ensure it hits 100%
+        if (state.currentQuestionIndex === questions.length - 1) {
+            state.fatLost = 100;
+        }
+
         optionButtons[selectedIndex].classList.add("correct");
         optionButtons.forEach((btn, idx) => {
             if (idx !== selectedIndex) btn.classList.add("dimmed");
@@ -432,20 +396,18 @@ function handleAnswer(selectedIndex) {
     } else {
         playSound('error');
         
-        // Avatar reaction
         activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].incorrect;
 
-        // Shake screen container for tactile feedback
         gameScreen.classList.add("shake");
         setTimeout(() => gameScreen.classList.remove("shake"), 500);
         
-        // Calculate penalty damage
-        const damage = 20;
-        const shieldAbsorption = (state.shieldPower / 100) * 10;
+        // Penalty is 15% damage (slightly lower since there are more questions)
+        const damage = 15;
+        const shieldAbsorption = (state.shieldPower / 100) * 8;
         const netDamage = Math.max(5, Math.round(damage - shieldAbsorption));
         
         state.muscleMass = Math.max(0, state.muscleMass - netDamage);
-        state.shieldPower = Math.max(0, state.shieldPower - 15);
+        state.shieldPower = Math.max(0, state.shieldPower - 10);
         
         optionButtons[selectedIndex].classList.add("incorrect");
         optionButtons[q.correctIndex].classList.add("correct");
@@ -457,13 +419,9 @@ function handleAnswer(selectedIndex) {
         feedbackTitle.style.color = "var(--red)";
         feedbackIcon.textContent = "💔";
         
-        // Custom message based on metric names
-        const metricName = state.activeZone === 1 ? "מסת שריר" : "נקודות ידע";
-        let damageMsg = `איבדת ${netDamage}% ${metricName}. `;
-        if (shieldAbsorption > 0 && state.activeZone === 1) {
+        let damageMsg = `איבדת ${netDamage}% מסת שריר. `;
+        if (shieldAbsorption > 0) {
             damageMsg += `(מגן השריר בלם ${Math.round(shieldAbsorption)}% מהנזק!)`;
-        } else if (shieldAbsorption > 0 && state.activeZone === 2) {
-            damageMsg += `(כוח המונג'רו ספג חלק מהטעות!)`;
         }
         
         feedbackDesc.innerHTML = `<strong>${damageMsg}</strong><br>${q.explanation}`;
@@ -477,21 +435,22 @@ function handleAnswer(selectedIndex) {
 document.getElementById("next-question-btn").addEventListener("click", () => {
     state.currentQuestionIndex++;
     
-    if (state.currentQuestionIndex < state.activeQuestions.length) {
+    if (state.currentQuestionIndex < questions.length) {
         loadQuestion(state.currentQuestionIndex);
     } else {
         finishGame();
     }
 });
 
-// FINISH GAME SCREEN
+// FINISH GAME
 function finishGame() {
     dashboard.classList.add('hidden');
     showScreen(finishScreen);
     
     // Set score numbers
     document.getElementById("final-muscle").textContent = `${state.muscleMass}%`;
-    document.getElementById("final-fat").textContent = `${state.fatLost}%`;
+    // If they got all correct, show 100% fat loss target
+    document.getElementById("final-fat").textContent = `${state.answersCorrect === questions.length ? 100 : state.fatLost}%`;
     
     const badgeEl = document.getElementById("final-badge");
     const adviceEl = document.getElementById("advice-text");
@@ -499,55 +458,22 @@ function finishGame() {
     let badgeText = "";
     let adviceText = "";
     
-    if (state.activeZone === 1) {
-        // Customize Metrics Labels for Zone 1
-        finalMetric1Lbl.textContent = "מסת שריר שנשמרה";
-        finalMetric2Lbl.textContent = "אחוזי שומן שירדו";
-        finalEmoji1.textContent = "💪";
-        finalEmoji2.textContent = "🔥";
-
-        if (state.muscleMass >= 90) {
-            badgeText = "🛡️ מגן שרירים אגדי";
-            badgeEl.style.background = "linear-gradient(135deg, var(--green) 0%, hsl(160, 80%, 45%) 100%)";
-            adviceText = "פנומנלי! הדגמת הבנה מושלמת בפיזיולוגיה ובתזונה. הצלחת לרדת במשקל תוך שמירה כמעט מלאה על רקמת השריר המטבולית שלך. המשך/י כך!";
-        } else if (state.muscleMass >= 70) {
-            badgeText = "🏋️‍♂️ מגן שרירים מוסמך";
-            badgeEl.style.background = "linear-gradient(135deg, var(--purple) 0%, var(--green) 100%)";
-            adviceText = "עבודה מצוינת! שמרת על רוב מסת השריר שלך בזמן הטיפול. זכור/י: צריכת חלבון עקבית (כ-1.2-1.5 גרם לק\"ג) יחד עם לפחות שני אימוני כוח שבועיים יבטיחו תוצאות ארוכות טווח.";
-        } else if (state.muscleMass >= 50) {
-            badgeText = "🔬 מתלמד מטבולי";
-            badgeEl.style.background = "linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%)";
-            adviceText = "השרירים שלך ספגו מעט פגיעה. למרות הירידה במשקל, חשוב לשים דגש רב יותר על אימוני כוח והוספת חלבון לתפריט היומי כדי למנוע ירידה בקצב חילוף החומרים.";
-        } else {
-            badgeText = "⚠️ סכנת סרקופניה";
-            badgeEl.style.background = "linear-gradient(135deg, var(--red) 0%, var(--orange) 100%)";
-            adviceText = "שים/י לב: מסת השריר שלך ירדה באופן משמעותי! ירידה כזו עלולה להוביל לחולשה ועייפות. מומלץ להתייעץ עם דיאטנ/ית קליני/ת ומאמנ/ת כושר כדי להתאים מחדש את שגרת התזונה והאימונים.";
-        }
+    if (state.muscleMass >= 85) {
+        badgeText = "🏆 מגן שרירים אגדי";
+        badgeEl.style.background = "linear-gradient(135deg, var(--green) 0%, hsl(160, 80%, 45%) 100%)";
+        adviceText = "פנומנלי! הגנת בהצלחה על מסת השריר שלך והפגנת ידע קליני מושלם בכנס סוכרת 2026. שמרת על חילוף החומרים ומנעת סרקופניה כמו מקצוען/ית!";
+    } else if (state.muscleMass >= 65) {
+        badgeText = "🏋️‍♂️ מגן שרירים מוסמך";
+        badgeEl.style.background = "linear-gradient(135deg, var(--purple) 0%, var(--green) 100%)";
+        adviceText = "עבודה מצוינת! שמרת על רוב מסת השריר שלך. זכור/י: צריכת חלבון מספקת (1.2-1.5 גרם לק\"ג), אימוני התנגדות קבועים והכרת ההשפעות המטבוליות של מונג'רו (העלאת HDL ושיפור דום נשימה בשינה) הן חיוניות ביותר.";
+    } else if (state.muscleMass >= 45) {
+        badgeText = "🔬 מתלמד מטבולי";
+        badgeEl.style.background = "linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%)";
+        adviceText = "השרירים שלך ספגו מעט פגיעה. למרות הירידה המבורכת במשקל, חשוב לשים דגש רב יותר על אימוני כוח ותזונה עשירה בחלבון כדי לתמוך במטבוליזם ולמנוע עייפות.";
     } else {
-        // Customize Metrics Labels for Zone 2 (Conference)
-        finalMetric1Lbl.textContent = "רמת ידע קליני";
-        finalMetric2Lbl.textContent = "מדד איזון סוכרת";
-        finalEmoji1.textContent = "🎓";
-        finalEmoji2.textContent = "🩸";
-
-        // Zone 2 Scoring
-        if (state.muscleMass >= 90) {
-            badgeText = "🎓 אנדוקרינולוג מומחה בכיר";
-            badgeEl.style.background = "linear-gradient(135deg, var(--green) 0%, hsl(160, 80%, 45%) 100%)";
-            adviceText = "פנטסטי! ענית נכון על כל השאלות הקשות של הכנס. הפגנת הבנה מעמיקה במחקרי SURMOUNT-OSA, SURPASS והפרמטרים הלבביים של מונג'רו. מומחה מטבולי אמיתי!";
-        } else if (state.muscleMass >= 70) {
-            badgeText = "🧬 מומחה מטבולי";
-            badgeEl.style.background = "linear-gradient(135deg, var(--purple) 0%, var(--green) 100%)";
-            adviceText = "כל הכבוד! הידע המטבולי שלך גבוה מאוד. הראית הבנה מצוינת ביעדי הטיפול, השפעות המולקולות על שומנים ולחצי דם, ורענון קל של מחקרי ה-OSA יביא אותך לשלמות קלינית.";
-        } else if (state.muscleMass >= 50) {
-            badgeText = "🔬 מתלמד קליני";
-            badgeEl.style.background = "linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%)";
-            adviceText = "הפגנת ידע בסיסי טוב, אך חלק מהשאלות הקליניות המורכבות הטעו אותך. מומלץ לעבור על השקפים העוסקים בירידה במשקל בחולי סוכרת סוג 2 לעומת ללא סוכרת.";
-        } else {
-            badgeText = "⚠️ מומלץ לחזור על המחקרי קליני";
-            badgeEl.style.background = "linear-gradient(135deg, var(--red) 0%, var(--orange) 100%)";
-            adviceText = "שאלות קשות! השפעות מונג'רו על ליפידים (ירידה ב-LDL ועלייה ב-HDL) ודום נשימה בשינה (OSA) הן קריטיות. מומלץ לחזור על החומר המקצועי של כנס סוכרת 2026 כדי להכיר את העדויות האחרונות.";
-        }
+        badgeText = "⚠️ סכנת סרקופניה";
+        badgeEl.style.background = "linear-gradient(135deg, var(--red) 0%, var(--orange) 100%)";
+        adviceText = "שים/י לב: איבדת מסת שריר משמעותית במהלך הירידה במשקל! מומלץ להתייעץ עם דיאטנ/ית ומאמנ/ת כושר כדי להתאים מחדש את שגרת התזונה (חלבונים) ואימוני ההתנגדות שלך.";
     }
     
     badgeEl.textContent = badgeText;

@@ -889,3 +889,22 @@ h1 {
     box-shadow: 0 0 10px rgba(249, 115, 22, 0.05);
 }
 
+/* HERO AND FINISH SCREEN IMAGES */
+.hero-img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    animation: float 4s infinite ease-in-out;
+}
+.finish-img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(249, 115, 22, 0.4);
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+    animation: float 4.5s infinite ease-in-out;
+}

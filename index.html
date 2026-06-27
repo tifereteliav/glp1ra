@@ -43,51 +43,18 @@
 
         <!-- DASHBOARD (Visible during gameplay) -->
         <section id="dashboard" class="dashboard hidden">
-            <!-- Muscle Mass / Clinical IQ Meter -->
-            <div class="meter-card">
-                <div class="meter-label">
-                    <span class="meter-title">
-                        <svg viewBox="0 0 24 24" width="16" height="16" class="text-green">
-                            <path fill="currentColor" d="M21,12C21,9.9 20,8 18.4,6.8L17,8.2C18.2,9.1 19,10.5 19,12C19,13.5 18.2,14.9 17,15.8L18.4,17.2C20,16 21,14.1 21,12M3,12C3,14.1 4,16 5.6,17.2L7,15.8C5.8,14.9 5,13.5 5,12C5,10.5 5.8,9.1 7,8.2L5.6,6.8C4,8 3,9.9 3,12M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z"/>
-                        </svg>
-                        <span id="lbl-meter-1-title">מסת שריר</span>
-                    </span>
-                    <span id="muscle-val" class="meter-value text-green">100%</span>
-                </div>
-                <div class="progress-track">
-                    <div id="muscle-bar" class="progress-fill fill-green" style="width: 100%;"></div>
-                </div>
-            </div>
-
-            <!-- Fat Mass / Diabetes Balance Meter -->
-            <div class="meter-card">
-                <div class="meter-label">
-                    <span class="meter-title">
-                        <svg viewBox="0 0 24 24" width="16" height="16" class="text-orange">
-                            <path fill="currentColor" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/>
-                        </svg>
-                        <span id="lbl-meter-2-title">איבוד שומן</span>
-                    </span>
-                    <span id="fat-val" class="meter-value text-orange">0%</span>
-                </div>
-                <div class="progress-track">
-                    <div id="fat-bar" class="progress-fill fill-orange" style="width: 0%;"></div>
-                </div>
-            </div>
-
-            <!-- Shield/Mounjaro Power -->
-            <div class="meter-card">
+            <div class="meter-card full-width">
                 <div class="meter-label">
                     <span class="meter-title">
                         <svg viewBox="0 0 24 24" width="16" height="16" class="text-purple">
                             <path fill="currentColor" d="M12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22M12,20V12H19C19,15.87 15.87,19 12,20Z"/>
                         </svg>
-                        <span id="lbl-meter-3-title">חומת מגן</span>
+                        התקדמות באתגר
                     </span>
-                    <span id="shield-val" class="meter-value text-purple">0%</span>
+                    <span id="challenge-progress-val" class="meter-value text-purple">שאלה 1 מתוך 7</span>
                 </div>
                 <div class="progress-track">
-                    <div id="shield-bar" class="progress-fill fill-purple" style="width: 0%;"></div>
+                    <div id="challenge-progress-bar" class="progress-fill fill-purple" style="width: 14%;"></div>
                 </div>
             </div>
         </section>
@@ -131,6 +98,13 @@
                                 <div class="avatar-desc">מבין את המדע המטבולי</div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Passcode Identification -->
+                    <div class="passcode-container">
+                        <h3>קוד כניסה לאתגר:</h3>
+                        <input type="tel" id="passcode-input" placeholder="הכנס קוד (4 ספרות)" maxlength="4" autocomplete="off">
+                        <p id="passcode-error" class="passcode-error hidden">⚠️ קוד כניסה שגוי! נסה שוב.</p>
                     </div>
 
                     <button id="start-game-btn" class="btn btn-primary pulse-effect">
@@ -207,21 +181,17 @@
                     </p>
 
                     <!-- Score Card Grid -->
+                    <div class="finish-code-card">
+                        <span class="code-label">קוד סיום האתגר שלך:</span>
+                        <span id="finish-code-val" class="code-value">GLP1</span>
+                        <p class="code-instructions">הצג/י קוד זה לנציג/ת הכנס לקבלת הפרס!</p>
+                    </div>
+
                     <div class="score-grid">
-                        <div class="score-card">
-                            <div id="final-emoji-1" class="score-emoji">💪</div>
-                            <span id="final-metric-1-lbl" class="score-label">מסת שריר שנשמרה</span>
-                            <span id="final-muscle" class="score-number text-green">100%</span>
-                        </div>
-                        <div class="score-card">
-                            <div id="final-emoji-2" class="score-emoji">🔥</div>
-                            <span id="final-metric-2-lbl" class="score-label">אחוזי שומן שירדו</span>
-                            <span id="final-fat" class="score-number text-orange">25%</span>
-                        </div>
                         <div class="score-card full-width">
-                            <div class="score-emoji">🏅</div>
-                            <span id="final-badge-lbl" class="score-label">התואר המטבולי שלך</span>
-                            <span id="final-badge" class="score-badge">מגן שרירים מוסמך</span>
+                            <div id="final-emoji-1" class="score-emoji">📊</div>
+                            <span id="final-metric-1-lbl" class="score-label">שאלות שענית עליהן נכון</span>
+                            <span id="final-muscle" class="score-number text-purple">7 / 7</span>
                         </div>
                     </div>
 

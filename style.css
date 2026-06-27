@@ -785,3 +785,107 @@ h1 {
         display: none; /* Hide descriptions to fit small screens nicely */
     }
 }
+
+/* ZONE SELECTION */
+.zone-selection {
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: right;
+}
+.zone-selection h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+.zone-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+.zone-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 14px 10px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+.zone-icon {
+    font-size: 2rem;
+    transition: var(--transition-smooth);
+}
+.zone-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--white);
+}
+.zone-desc {
+    font-size: 0.65rem;
+    color: var(--text-sub);
+    line-height: 1.3;
+}
+.zone-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+.zone-card.active {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--green);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+}
+.zone-card.active[data-zone="2"] {
+    background: rgba(168, 85, 247, 0.15);
+    border-color: var(--purple);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+}
+.zone-card.active .zone-icon {
+    transform: scale(1.15);
+}
+
+/* ACTIVE AVATAR BADGE IN QUESTION HEADER */
+.active-avatar-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--white);
+    font-weight: 600;
+}
+.avatar-reaction-emoji {
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+.avatar-reaction-emoji.excited {
+    animation: excited-bounce 0.6s ease infinite alternate;
+}
+@keyframes excited-bounce {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-4px) scale(1.2); }
+}
+
+/* DIFFICULTY BADGES */
+.difficulty-badge {
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    color: var(--orange);
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 6px;
+    text-shadow: 0 0 5px rgba(249, 115, 22, 0.2);
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.05);
+}
+

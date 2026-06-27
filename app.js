@@ -1,7 +1,7 @@
 // GLP-1 MUSCLE DEFENDER - GAME LOGIC
 
-// Game Questions Database
-const questions = [
+// Game Questions Database by Zone
+const zone1Questions = [
     {
         text: "מה מההיגדים הבאים לגבי הקשר בין בריאות השריר לסינדרום המטבולי נכון?",
         options: [
@@ -10,7 +10,7 @@ const questions = [
             "ג. לא ניתן למנוע איבוד מסת שריר משני לטיפול הנ\"ל",
             "ד. בקשישים אין משמעות קלינית לירידה במסת השריר"
         ],
-        correctIndex: 1, // Option B (Index 1)
+        correctIndex: 1, // Option B
         explanation: "נכון מאוד! ירידה מהירה במשקל תחת טיפול ב-GLP1-RA (כגון אוזמפיק, וויגובי) עלולה לגרור איבוד של עד 20-40% מסת שריר מכלל המשקל שיורד. לכן חשוב מאוד ללוות את הטיפול בהתערבויות מתאימות."
     },
     {
@@ -21,7 +21,7 @@ const questions = [
             "ג. התערבויות פרמקולוגיות",
             "ד. כל התשובות נכונות"
         ],
-        correctIndex: 3, // Option D (Index 3)
+        correctIndex: 3, // Option D
         explanation: "מדויק! שילוב של צריכת חלבון מספקת, אימוני התנגדות (כוח) סדירים ולפעמים טיפולים רפואיים משלימים, מהווים יחד את הנוסחה המנצחת להגנה על השריר בזמן הרזיה."
     },
     {
@@ -32,7 +32,7 @@ const questions = [
             "ג. אין צורך בחלבון כלל, פחמימות בלבד מונעות פירוק שריר",
             "ד. מספיק לאכול ארוחת חלבון אחת לשבוע"
         ],
-        correctIndex: 1, // Option B (Index 1)
+        correctIndex: 1, // Option B
         explanation: "תשובה מצוינת! בשל המאזן הקלורי השלילי, מומלץ להעלות את כמות החלבון לכ-1.2-1.5 גרם לקילוגרם משקל גוף ביום כדי לתמוך בבניית השריר ומניעת שחיקתו."
     },
     {
@@ -43,13 +43,67 @@ const questions = [
             "ג. מתיחות קלות בלבד פעם בשבועיים",
             "ד. הליכה של 5 דקות בלבד פעם ביומיים"
         ],
-        correctIndex: 0, // Option A (Index 0)
+        correctIndex: 0, // Option A
         explanation: "מעולה! אימוני התנגדות מספקים גירוי מכני ישיר לשרירים המאותת לגוף שהם חיוניים, ובכך מונעים מהגוף להשתמש ברקמת השריר לצורכי אנרגיה."
     }
 ];
 
+const zone2Questions = [
+    {
+        text: "הטיפול במונג'רו בחולי סוכרת הביא במקביל לירידה בכל הבאים פרט ל:",
+        options: [
+            "א. לחץ דם דיאסטולי",
+            "ב. LDL (כולסטרול)",
+            "ג. HDL (כולסטרול)",
+            "ד. לחץ דם סיסטולי"
+        ],
+        correctIndex: 2, // Option C (HDL)
+        difficulty: "זהירות, שאלה של אנדוקרינולוגים 🔬",
+        explanation: "בינגו קליני! 🎯 מונג'רו הוא טיפול עוצמתי - הוא מפחית סוכר, משקל, לחצי דם (סיסטולי ודיאסטולי) ואת הכולסטרול ה'רע' (LDL). אבל ה-HDL? אותו הוא דווקא *מעלה* (כי זה הכולסטרול ה'טוב' שמגן על הלב)! כי בחיים תמיד טוב שיהיה משהו שעולה למעלה. 😉"
+    },
+    {
+        text: "בהשוואה (בלתי ישירה) של מחקרי SURPASS של מונג'רו בחולי סוכרת לעומת מחקרי SURMOUNT של מונג'רו באנשים החיים עם השמנה ללא סוכרת, הירידה במשקל בקרב חולי הסוכרת היתה:",
+        options: [
+            "א. קטנה יותר",
+            "ב. גדולה יותר",
+            "ג. זהה",
+            "ד. לא ניתן להשוות"
+        ],
+        correctIndex: 0, // Option A
+        difficulty: "קושי: פרופסור מטבולי 🧠",
+        explanation: "פענחת את הקוד! 🧬 עם סוכרת סוג 2, הגוף קצת יותר 'עקשן' לגבי ירידה במשקל בשל עמידות גבוהה לאינסולין, שינויים מטבוליים מורכבים והיסטוריה הורמונלית. לכן הירידה במחקרי SURPASS (חולי סוכרת) היתה קטנה יותר מאשר במחקרי SURMOUNT (ללא סוכרת). ועדיין - מדובר בירידת משקל מרשימה ומשנת חיים!"
+    },
+    {
+        text: "מחקר SURMOUNT-OSA מצא שיפור ב-Apnea Hypopnea Index (מדד דום נשימה בשינה) בקרב איזו אוכלוסייה?",
+        options: [
+            "א. שניהם (אנשים שנעזרו ושלא נעזרו במכשיר PAP)",
+            "ב. אנשים אשר נעזרו במכשיר PAP בלבד",
+            "ג. אנשים אשר לא נעזרו במכשיר PAP בלבד",
+            "ד. אף אחד מהנ\"ל"
+        ],
+        correctIndex: 0, // Option A
+        difficulty: "שאלה למומחי שינה 😴",
+        explanation: "לילה שקט ועמוק! 😴 מחקר SURMOUNT-OSA ההיסטורי שפורסם ב-NEJM 2024 הוכיח כי טיפול במונג'רו הביא לשיפור דרמטי ב-AHI (הפחתת דום נשימה בשינה) בשתי האוכלוסיות - גם אצל אלו המשתמשים ב-PAP וגם אצל אלו שלא משתמשים! ירידת השומן באיזור הצוואר מקלה על המעבר, ומאפשרת שינה מתוקה לכולם."
+    }
+];
+
+// Avatar config (Emojis & reactions)
+const avatarEmojis = {
+    protein: { normal: '🥩', correct: '😄', incorrect: '😅' },
+    lift: { normal: '🏋️‍♂️', correct: '💪', incorrect: '😰' },
+    science: { normal: '🔬', correct: '🧠', incorrect: '🤦‍♂️' }
+};
+
+const avatarNames = {
+    protein: 'אלוף החלבון',
+    lift: 'מאמנת הכוח',
+    science: 'חוקר המטבוליזם'
+};
+
 // Game State variables
 let state = {
+    activeZone: 1, // 1: Muscle Defense, 2: Diabetes Conference
+    activeQuestions: zone1Questions,
     muscleMass: 100,
     fatLost: 0,
     shieldPower: 0,
@@ -62,7 +116,6 @@ let state = {
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(type) {
-    // Check if AudioContext is suspended (browser security) and resume
     if (audioCtx.state === 'suspended') {
         audioCtx.resume();
     }
@@ -123,6 +176,19 @@ const fatVal = document.getElementById("fat-val");
 const shieldBar = document.getElementById("shield-bar");
 const shieldVal = document.getElementById("shield-val");
 
+const lblMeter1Title = document.getElementById("lbl-meter-1-title");
+const lblMeter2Title = document.getElementById("lbl-meter-2-title");
+const lblMeter3Title = document.getElementById("lbl-meter-3-title");
+
+const finalMetric1Lbl = document.getElementById("final-metric-1-lbl");
+const finalMetric2Lbl = document.getElementById("final-metric-2-lbl");
+const finalEmoji1 = document.getElementById("final-emoji-1");
+const finalEmoji2 = document.getElementById("final-emoji-2");
+
+const activeAvatarEmoji = document.getElementById("active-avatar-emoji");
+const activeAvatarName = document.getElementById("active-avatar-name");
+const difficultyBadge = document.getElementById("difficulty-badge");
+
 const questionText = document.getElementById("question-text");
 const questionIndexBadge = document.getElementById("question-index");
 const optionsContainer = document.getElementById("options-container");
@@ -133,7 +199,7 @@ const feedbackIcon = document.getElementById("feedback-icon");
 
 const infoModal = document.getElementById("info-modal");
 
-// Confetti Particle System
+// Confetti Particle System on Canvas
 const canvas = document.getElementById("confetti-canvas");
 const ctx = canvas.getContext("2d");
 let confettiActive = false;
@@ -230,11 +296,20 @@ function showScreen(screenToShow) {
         s.classList.add('hidden');
     });
     screenToShow.classList.remove('hidden');
-    // Allow browser to register layout before activating transition
     setTimeout(() => {
         screenToShow.classList.add('active');
     }, 50);
 }
+
+// Zone selection UI logic
+document.querySelectorAll(".zone-card").forEach(card => {
+    card.addEventListener("click", () => {
+        document.querySelectorAll(".zone-card").forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        state.activeZone = parseInt(card.dataset.zone);
+        state.activeQuestions = state.activeZone === 1 ? zone1Questions : zone2Questions;
+    });
+});
 
 // Avatar selection UI logic
 document.querySelectorAll(".avatar-card").forEach(card => {
@@ -247,13 +322,29 @@ document.querySelectorAll(".avatar-card").forEach(card => {
 
 // START GAME
 document.getElementById("start-game-btn").addEventListener("click", () => {
-    // Initialize/Reset Game state
+    // Reset state values
     state.muscleMass = 100;
     state.fatLost = 0;
     state.shieldPower = 0;
     state.currentQuestionIndex = 0;
     state.answersCorrect = 0;
-    
+
+    // Dynamically update HUD names based on Zone
+    if (state.activeZone === 1) {
+        lblMeter1Title.textContent = "מסת שריר";
+        lblMeter2Title.textContent = "איבוד שומן";
+        lblMeter3Title.textContent = "חומת מגן";
+    } else {
+        lblMeter1Title.textContent = "ידע קליני";
+        lblMeter2Title.textContent = "איזון סוכרת";
+        lblMeter3Title.textContent = "כוח מונג'רו";
+    }
+
+    // Set Active Avatar Badge
+    activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
+    activeAvatarEmoji.className = "avatar-reaction-emoji"; // Reset classes
+    activeAvatarName.textContent = avatarNames[state.selectedAvatar];
+
     updateHUD();
     dashboard.classList.remove('hidden');
     showScreen(gameScreen);
@@ -262,11 +353,23 @@ document.getElementById("start-game-btn").addEventListener("click", () => {
 
 // LOAD QUESTION
 function loadQuestion(index) {
-    const q = questions[index];
-    questionIndexBadge.textContent = `שאלה ${index + 1} מתוך ${questions.length}`;
+    const q = state.activeQuestions[index];
+    questionIndexBadge.textContent = `שאלה ${index + 1} מתוך ${state.activeQuestions.length}`;
     questionText.textContent = q.text;
     feedbackPanel.classList.add('hidden');
     
+    // Set normal avatar emoji
+    activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
+    activeAvatarEmoji.classList.remove("excited");
+
+    // Display difficulty badge if present (Zone 2)
+    if (q.difficulty) {
+        difficultyBadge.textContent = q.difficulty;
+        difficultyBadge.classList.remove("hidden");
+    } else {
+        difficultyBadge.classList.add("hidden");
+    }
+
     // Clear and build options
     optionsContainer.innerHTML = '';
     
@@ -274,15 +377,16 @@ function loadQuestion(index) {
         const button = document.createElement("button");
         button.className = "option-btn";
         
-        // Add Marker
+        // Add Letter Marker
         const marker = document.createElement("div");
         marker.className = "option-marker";
-        // Convert index to Hebrew letter: 0 -> א, 1 -> ב, etc.
         const letters = ["א", "ב", "ג", "ד"];
         marker.textContent = letters[idx];
         
         const textSpan = document.createElement("span");
-        textSpan.textContent = optText.substring(3); // Remove the 'א. ' prefix from content text
+        // Extract content after the letter label if exists, else take full
+        const textToDisplay = optText.includes('. ') ? optText.substring(3) : optText;
+        textSpan.textContent = textToDisplay;
         
         button.appendChild(marker);
         button.appendChild(textSpan);
@@ -294,32 +398,32 @@ function loadQuestion(index) {
 
 // HANDLE ANSWER
 function handleAnswer(selectedIndex) {
-    const q = questions[state.currentQuestionIndex];
+    const q = state.activeQuestions[state.currentQuestionIndex];
     const optionButtons = document.querySelectorAll(".option-btn");
     
-    // Disable all options
+    // Disable options
     optionButtons.forEach(btn => btn.disabled = true);
     
     const isCorrect = selectedIndex === q.correctIndex;
-    
+    const progressIncrement = Math.round(100 / state.activeQuestions.length);
+
     if (isCorrect) {
         playSound('success');
         state.answersCorrect++;
         
-        // Boost fat loss progress
-        state.fatLost = Math.min(100, state.fatLost + 25);
-        // Boost protective shield
-        state.shieldPower = Math.min(100, state.shieldPower + 25);
+        // Avatar reaction
+        activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].correct;
+        activeAvatarEmoji.classList.add("excited");
+
+        // Boost progress bars
+        state.fatLost = Math.min(100, state.fatLost + progressIncrement);
+        state.shieldPower = Math.min(100, state.shieldPower + progressIncrement);
         
-        // Style selected correct button
         optionButtons[selectedIndex].classList.add("correct");
-        
-        // Dim other options
         optionButtons.forEach((btn, idx) => {
             if (idx !== selectedIndex) btn.classList.add("dimmed");
         });
         
-        // Feedback details
         feedbackTitle.textContent = "נכון מאוד! 🎉";
         feedbackTitle.style.color = "var(--green)";
         feedbackIcon.textContent = "🛡️";
@@ -328,44 +432,44 @@ function handleAnswer(selectedIndex) {
     } else {
         playSound('error');
         
+        // Avatar reaction
+        activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].incorrect;
+
         // Shake screen container for tactile feedback
         gameScreen.classList.add("shake");
         setTimeout(() => gameScreen.classList.remove("shake"), 500);
         
-        // Calculate muscle mass damage: base damage is 20%, but shield absorbs half of it!
+        // Calculate penalty damage
         const damage = 20;
-        const shieldAbsorption = (state.shieldPower / 100) * 10; // Shield reduces up to 10% damage
+        const shieldAbsorption = (state.shieldPower / 100) * 10;
         const netDamage = Math.max(5, Math.round(damage - shieldAbsorption));
         
         state.muscleMass = Math.max(0, state.muscleMass - netDamage);
-        // Reduce shield slightly on hit
         state.shieldPower = Math.max(0, state.shieldPower - 15);
         
-        // Style selected incorrect, highlight correct
         optionButtons[selectedIndex].classList.add("incorrect");
         optionButtons[q.correctIndex].classList.add("correct");
-        
-        // Dim other options
         optionButtons.forEach((btn, idx) => {
             if (idx !== selectedIndex && idx !== q.correctIndex) btn.classList.add("dimmed");
         });
         
-        // Feedback details
         feedbackTitle.textContent = "אופס! לא מדויק ⚠️";
         feedbackTitle.style.color = "var(--red)";
         feedbackIcon.textContent = "💔";
         
-        let damageMsg = `איבדת ${netDamage}% מסת שריר. `;
-        if (shieldAbsorption > 0) {
+        // Custom message based on metric names
+        const metricName = state.activeZone === 1 ? "מסת שריר" : "נקודות ידע";
+        let damageMsg = `איבדת ${netDamage}% ${metricName}. `;
+        if (shieldAbsorption > 0 && state.activeZone === 1) {
             damageMsg += `(מגן השריר בלם ${Math.round(shieldAbsorption)}% מהנזק!)`;
+        } else if (shieldAbsorption > 0 && state.activeZone === 2) {
+            damageMsg += `(כוח המונג'רו ספג חלק מהטעות!)`;
         }
         
         feedbackDesc.innerHTML = `<strong>${damageMsg}</strong><br>${q.explanation}`;
     }
     
     updateHUD();
-    
-    // Slide up feedback panel
     feedbackPanel.classList.remove('hidden');
 }
 
@@ -373,14 +477,14 @@ function handleAnswer(selectedIndex) {
 document.getElementById("next-question-btn").addEventListener("click", () => {
     state.currentQuestionIndex++;
     
-    if (state.currentQuestionIndex < questions.length) {
+    if (state.currentQuestionIndex < state.activeQuestions.length) {
         loadQuestion(state.currentQuestionIndex);
     } else {
         finishGame();
     }
 });
 
-// FINISH GAME SCREEN DISPLAY
+// FINISH GAME SCREEN
 function finishGame() {
     dashboard.classList.add('hidden');
     showScreen(finishScreen);
@@ -389,29 +493,61 @@ function finishGame() {
     document.getElementById("final-muscle").textContent = `${state.muscleMass}%`;
     document.getElementById("final-fat").textContent = `${state.fatLost}%`;
     
-    // Calculate performance badge
     const badgeEl = document.getElementById("final-badge");
     const adviceEl = document.getElementById("advice-text");
     
     let badgeText = "";
     let adviceText = "";
     
-    if (state.muscleMass >= 90) {
-        badgeText = "🛡️ מגן שרירים אגדי";
-        badgeEl.style.background = "linear-gradient(135deg, var(--green) 0%, hsl(160, 80%, 45%) 100%)";
-        adviceText = "פנומנלי! הדגמת הבנה מושלמת בפיזיולוגיה ובתזונה. הצלחת לרדת במשקל תוך שמירה כמעט מלאה על רקמת השריר המטבולית שלך. המשך/י כך!";
-    } else if (state.muscleMass >= 70) {
-        badgeText = "🏋️‍♂️ מגן שרירים מוסמך";
-        badgeEl.style.background = "linear-gradient(135deg, var(--purple) 0%, var(--green) 100%)";
-        adviceText = "עבודה מצוינת! שמרת על רוב מסת השריר שלך בזמן הטיפול. זכור/י: צריכת חלבון עקבית (כ-1.2 גרם לק\"ג) יחד עם לפחות שני אימוני כוח שבועיים יבטיחו תוצאות ארוכות טווח.";
-    } else if (state.muscleMass >= 50) {
-        badgeText = "🔬 מתלמד מטבולי";
-        badgeEl.style.background = "linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%)";
-        adviceText = "השרירים שלך ספגו מעט פגיעה. למרות הירידה במשקל, חשוב לשים דגש רב יותר על אימוני כוח והוספת חלבון לתפריט היומי כדי למנוע ירידה בקצב חילוף החומרים.";
+    if (state.activeZone === 1) {
+        // Customize Metrics Labels for Zone 1
+        finalMetric1Lbl.textContent = "מסת שריר שנשמרה";
+        finalMetric2Lbl.textContent = "אחוזי שומן שירדו";
+        finalEmoji1.textContent = "💪";
+        finalEmoji2.textContent = "🔥";
+
+        if (state.muscleMass >= 90) {
+            badgeText = "🛡️ מגן שרירים אגדי";
+            badgeEl.style.background = "linear-gradient(135deg, var(--green) 0%, hsl(160, 80%, 45%) 100%)";
+            adviceText = "פנומנלי! הדגמת הבנה מושלמת בפיזיולוגיה ובתזונה. הצלחת לרדת במשקל תוך שמירה כמעט מלאה על רקמת השריר המטבולית שלך. המשך/י כך!";
+        } else if (state.muscleMass >= 70) {
+            badgeText = "🏋️‍♂️ מגן שרירים מוסמך";
+            badgeEl.style.background = "linear-gradient(135deg, var(--purple) 0%, var(--green) 100%)";
+            adviceText = "עבודה מצוינת! שמרת על רוב מסת השריר שלך בזמן הטיפול. זכור/י: צריכת חלבון עקבית (כ-1.2-1.5 גרם לק\"ג) יחד עם לפחות שני אימוני כוח שבועיים יבטיחו תוצאות ארוכות טווח.";
+        } else if (state.muscleMass >= 50) {
+            badgeText = "🔬 מתלמד מטבולי";
+            badgeEl.style.background = "linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%)";
+            adviceText = "השרירים שלך ספגו מעט פגיעה. למרות הירידה במשקל, חשוב לשים דגש רב יותר על אימוני כוח והוספת חלבון לתפריט היומי כדי למנוע ירידה בקצב חילוף החומרים.";
+        } else {
+            badgeText = "⚠️ סכנת סרקופניה";
+            badgeEl.style.background = "linear-gradient(135deg, var(--red) 0%, var(--orange) 100%)";
+            adviceText = "שים/י לב: מסת השריר שלך ירדה באופן משמעותי! ירידה כזו עלולה להוביל לחולשה ועייפות. מומלץ להתייעץ עם דיאטנ/ית קליני/ת ומאמנ/ת כושר כדי להתאים מחדש את שגרת התזונה והאימונים.";
+        }
     } else {
-        badgeText = "⚠️ סכנת סרקופניה";
-        badgeEl.style.background = "linear-gradient(135deg, var(--red) 0%, var(--orange) 100%)";
-        adviceText = "שים/י לב: מסת השריר שלך ירדה באופן משמעותי! ירידה כזו עלולה להוביל לחולשה ועייפות. מומלץ להתייעץ עם דיאטנ/ית קליני/ת ומאמנ/ת כושר כדי להתאים מחדש את שגרת התזונה והאימונים.";
+        // Customize Metrics Labels for Zone 2 (Conference)
+        finalMetric1Lbl.textContent = "רמת ידע קליני";
+        finalMetric2Lbl.textContent = "מדד איזון סוכרת";
+        finalEmoji1.textContent = "🎓";
+        finalEmoji2.textContent = "🩸";
+
+        // Zone 2 Scoring
+        if (state.muscleMass >= 90) {
+            badgeText = "🎓 אנדוקרינולוג מומחה בכיר";
+            badgeEl.style.background = "linear-gradient(135deg, var(--green) 0%, hsl(160, 80%, 45%) 100%)";
+            adviceText = "פנטסטי! ענית נכון על כל השאלות הקשות של הכנס. הפגנת הבנה מעמיקה במחקרי SURMOUNT-OSA, SURPASS והפרמטרים הלבביים של מונג'רו. מומחה מטבולי אמיתי!";
+        } else if (state.muscleMass >= 70) {
+            badgeText = "🧬 מומחה מטבולי";
+            badgeEl.style.background = "linear-gradient(135deg, var(--purple) 0%, var(--green) 100%)";
+            adviceText = "כל הכבוד! הידע המטבולי שלך גבוה מאוד. הראית הבנה מצוינת ביעדי הטיפול, השפעות המולקולות על שומנים ולחצי דם, ורענון קל של מחקרי ה-OSA יביא אותך לשלמות קלינית.";
+        } else if (state.muscleMass >= 50) {
+            badgeText = "🔬 מתלמד קליני";
+            badgeEl.style.background = "linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%)";
+            adviceText = "הפגנת ידע בסיסי טוב, אך חלק מהשאלות הקליניות המורכבות הטעו אותך. מומלץ לעבור על השקפים העוסקים בירידה במשקל בחולי סוכרת סוג 2 לעומת ללא סוכרת.";
+        } else {
+            badgeText = "⚠️ מומלץ לחזור על המחקרי קליני";
+            badgeEl.style.background = "linear-gradient(135deg, var(--red) 0%, var(--orange) 100%)";
+            adviceText = "שאלות קשות! השפעות מונג'רו על ליפידים (ירידה ב-LDL ועלייה ב-HDL) ודום נשימה בשינה (OSA) הן קריטיות. מומלץ לחזור על החומר המקצועי של כנס סוכרת 2026 כדי להכיר את העדויות האחרונות.";
+        }
     }
     
     badgeEl.textContent = badgeText;
@@ -439,7 +575,6 @@ closeModalBtn.addEventListener("click", () => {
     infoModal.classList.add("hidden");
 });
 
-// Close modal when clicking outside content
 infoModal.addEventListener("click", (e) => {
     if (e.target === infoModal) {
         infoModal.classList.add("hidden");

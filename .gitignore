@@ -1,0 +1,6 @@
+*.pptx
+*.docx
+temp_docx.zip
+temp_pptx.zip
+extracted_docx/
+extracted_pptx/

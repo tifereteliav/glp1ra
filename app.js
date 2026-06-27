@@ -411,12 +411,12 @@ function finishGame() {
     if (state.answersCorrect === questions.length) {
         codeEl.textContent = "GLP1";
         codeEl.style.textShadow = "0 0 25px rgba(16, 185, 129, 0.5), 0 0 45px var(--green)";
-        codeInstructionsEl.textContent = "מדהים! ענית נכון על כל 7 השאלות! הצג/י קוד זה לנציג/ת הכנס לקבלת הפרס הגדול!";
+        codeInstructionsEl.textContent = "מדהים! ענית נכון על כל 7 השאלות! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
         codeInstructionsEl.style.color = "var(--green)";
     } else {
         codeEl.textContent = "muscle";
         codeEl.style.textShadow = "0 0 25px rgba(249, 115, 22, 0.5), 0 0 45px var(--orange)";
-        codeInstructionsEl.textContent = "השלמת את האתגר! הצג/י קוד זה לנציג/ת הכנס לקבלת שי בהתאם לציון!";
+        codeInstructionsEl.textContent = "השלמת את האתגר! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
         codeInstructionsEl.style.color = "var(--orange)";
     }
     

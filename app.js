@@ -50,7 +50,7 @@ const questions = [
             "ג. HDL (כולסטרול)",
             "ד. לחץ דם סיסטולי"
         ],
-        correctIndex: 0, // Option A (לחץ דם דיאסטולי)
+        correctIndex: 2, // Option C (HDL כולסטרול)
         difficulty: "זהירות, שאלה של אנדוקרינולוגים 🔬"
     },
     {

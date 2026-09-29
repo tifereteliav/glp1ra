@@ -233,15 +233,14 @@ class ConfettiParticle {
 }
 
 function startConfetti() {
-    confettiActive = true;
-    resizeCanvas();
-    confettiParticles = Array.from({ length: 80 }, () => new ConfettiParticle());
-    animateConfetti();
+    // Disabled to keep reading clean and unobstructed
+    confettiActive = false;
+    if (ctx && canvas) ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function stopConfetti() {
     confettiActive = false;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (ctx && canvas) ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function animateConfetti() {
@@ -502,22 +501,6 @@ function finishGame() {
     finalPercentageEl.style.webkitBackgroundClip = "text";
     finalPercentageEl.style.webkitTextFillColor = "transparent";
 
-    // Raffle Code Card
-    const codeEl = document.getElementById("finish-code-val");
-    const codeInstructionsEl = document.querySelector(".code-instructions");
-    
-    if (state.answersCorrect === totalQuestions) {
-        codeEl.textContent = "GLP1";
-        codeEl.style.textShadow = "0 0 25px rgba(16, 185, 129, 0.5), 0 0 45px var(--green)";
-        codeInstructionsEl.textContent = "מושלם! 100% הצלחה! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
-        codeInstructionsEl.style.color = "var(--green)";
-    } else {
-        codeEl.textContent = "muscle";
-        codeEl.style.textShadow = "0 0 25px rgba(249, 115, 22, 0.5), 0 0 45px var(--orange)";
-        codeInstructionsEl.textContent = "השלמת את הסימולציה! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
-        codeInstructionsEl.style.color = "var(--orange)";
-    }
-    
     // Dynamic Comprehensive Review of Questions and Explanations
     const reviewListContainer = document.getElementById("questions-review-list");
     reviewListContainer.innerHTML = '';
@@ -572,7 +555,6 @@ function finishGame() {
     });
 
     playSound('complete');
-    startConfetti();
 }
 
 // RESTART SIMULATION
@@ -589,7 +571,7 @@ if (infoModalText) {
         <ul>
             <li>במסך הפתיחה תוכלו לבחור את אופן קבלת המשוב: <strong>משוב מיידי</strong> אחרי כל שאלה, או <strong>משוב מרוכז</strong> בסיום.</li>
             <li>עונים על 7 שאלות קליניות ומטבוליות בנושא טיפול ב-GLP1 ושמירה על מסת שריר.</li>
-            <li>בסיום הסימולציה מקבלים ציון יחסי מתוך 100%, קוד הגרלה לכנס, ופירוט מלא של כל התשובות וההסברים הרפואיים.</li>
+            <li>בסיום הסימולציה מקבלים ציון יחסי מתוך 100% ופירוט מלא של כל התשובות וההסברים הרפואיים.</li>
         </ul>
     `;
 }

@@ -61,54 +61,46 @@
 
         <!-- MAIN CONTENT AREA -->
         <main class="main-card">
-            <!-- SCREEN 0: PASSCODE SCREEN -->
-            <section id="passcode-screen" class="screen active">
-                <div class="center-content">
-                    <div class="hero-graphic" style="margin-bottom: 24px;">
-                        <div class="glow-ring"></div>
-                        <!-- Futuristic Lock Icon SVG -->
-                        <svg viewBox="0 0 24 24" width="90" height="90" class="hero-svg text-purple" style="filter: drop-shadow(0 0 12px var(--purple-glow)); margin: 0 auto; display: block;">
-                            <path fill="currentColor" d="M18,8H17V6A5,5 0 0,0 12,1A5,5 0 0,0 7,6V8H6A2,2 0 0,0 4,10V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V10A2,2 0 0,0 18,8M9,6A3,3 0 0,1 12,3A3,3 0 0,1 15,6V8H9V6M12,17A1.5,1.5 0 1,1 13.5,15.5A1.5,1.5 0 0,1 12,17Z"/>
-                        </svg>
-                    </div>
-
-                    <h2 class="welcome-title">שער כניסה לאתגר</h2>
-                    <p class="welcome-text">הזן/י את קוד הגישה האישי שקיבלת כדי לפתוח את האתגר המטבולי.</p>
-
-                    <div class="passcode-container">
-                        <h3>קוד גישה:</h3>
-                        <input type="tel" id="passcode-input" placeholder="הכנס קוד כניסה" maxlength="4" autocomplete="off">
-                        <p id="passcode-error" class="passcode-error hidden">⚠️ קוד כניסה שגוי! נסה שוב.</p>
-                    </div>
-
-                    <button id="verify-passcode-btn" class="btn btn-primary pulse-effect" style="margin-top: 10px;">
-                        <span>הכנס לאתגר</span>
-                        <svg viewBox="0 0 24 24" width="20" height="20">
-                            <path fill="currentColor" d="M10,17L15,12L10,7V17Z"/>
-                        </svg>
-                    </button>
-                </div>
-            </section>
-
-            <!-- SCREEN 1: START SCREEN -->
-            <section id="start-screen" class="screen hidden">
+            <!-- SCREEN 1: START SCREEN (WELCOME & SETTINGS) -->
+            <section id="start-screen" class="screen active">
                 <div class="center-content">
                     <div class="hero-graphic">
                         <div class="glow-ring"></div>
                         <img src="muscle_defense_hero.png" alt="מגן השריר" class="hero-img">
                     </div>
 
-                    <h2 class="welcome-title">אתגר מגן השריר</h2>
+                    <h2 class="welcome-title">ברוכים הבאים לסימולציה בנושא GLP1RA</h2>
                     <p class="welcome-text">
                         תרופות מקבוצת <strong>GLP1 RA</strong> (כגון אוזמפיק, וייגובי, מונגארו, טורליסטי) הן מהפיכה רפואית בירידה במשקל ובאיזון סוכרת, אך ללא הדרכה נכונה, <strong>אנו עלולים לאבד מסת שריר יקרה!</strong>
                     </p>
                     <p class="welcome-text-highlight">
-                        ענה/י על 7 שאלות מטבוליות וקליניות כדי להגן על מסת השריר שלך ולשמור על הבריאות!
+                        ענו על 7 שאלות קליניות ומטבוליות מרתקות כדי ללמוד כיצד להגן על השריר ולשלוט בעקרונות הטיפול.
                     </p>
 
+                    <!-- Feedback Mode Preference -->
+                    <div class="feedback-mode-selection">
+                        <h3 class="selection-heading">בחר/י את אופן קבלת המשוב:</h3>
+                        <div class="mode-grid">
+                            <div class="mode-card active" data-mode="instant">
+                                <div class="mode-header">
+                                    <span class="mode-icon">⚡</span>
+                                    <span class="mode-title">משוב מיידי בכל שאלה</span>
+                                </div>
+                                <p class="mode-desc">הצגת התשובה הנכונה והסבר רפואי מפורט ישר לאחר כל מענה</p>
+                            </div>
+                            <div class="mode-card" data-mode="summary">
+                                <div class="mode-header">
+                                    <span class="mode-icon">📋</span>
+                                    <span class="mode-title">משוב מרוכז בסיום</span>
+                                </div>
+                                <p class="mode-desc">מענה רציף על כל השאלות, והצגת הציון, התשובות וההסברים המלאים בסוף הסימולציה</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Avatar Selection -->
-                    <div class="avatar-selection">
-                        <h3>בחר/י את הגיבור/ה שלך:</h3>
+                    <div class="avatar-selection" style="margin-top: 18px;">
+                        <h3 class="selection-heading">בחר/י את הגיבור/ה שלך:</h3>
                         <div class="avatar-grid">
                             <div class="avatar-card active" data-avatar="protein">
                                 <div class="avatar-emoji">🥩</div>
@@ -128,9 +120,9 @@
                         </div>
                     </div>
 
-                    <button id="start-game-btn" class="btn btn-primary pulse-effect" style="margin-top: 20px;">
-                        <span>התחל באתגר!</span>
-                        <svg viewBox="0 0 24 24" width="20" height="20">
+                    <button id="start-game-btn" class="btn btn-primary pulse-effect" style="margin-top: 24px; font-size: 1.15rem; padding: 15px 32px;">
+                        <span>להתחלה לחצו כאן</span>
+                        <svg viewBox="0 0 24 24" width="22" height="22">
                             <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z"/>
                         </svg>
                     </button>
@@ -142,7 +134,7 @@
                 <!-- Question Card -->
                 <div class="question-container">
                     <div class="question-header">
-                        <span id="question-index" class="q-badge">שאלה 1 מתוך 4</span>
+                        <span id="question-index" class="q-badge">שאלה 1 מתוך 7</span>
                         
                         <!-- Dynamic Active Avatar Display -->
                         <div class="active-avatar-badge">
@@ -151,7 +143,6 @@
                         </div>
                         
                         <div class="shield-indicator" id="shield-indicator">
-                            <!-- Floating shield icon -->
                             <svg viewBox="0 0 24 24" width="20" height="20">
                                 <path fill="currentColor" d="M12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22M12,20V12H19C19,15.87 15.87,19 12,20Z"/>
                             </svg>
@@ -180,7 +171,7 @@
                         </div>
                     </div>
                     <button id="next-question-btn" class="btn btn-next">
-                        <span>המשך לשלב הבא</span>
+                        <span>המשך לשאלה הבאה</span>
                         <svg viewBox="0 0 24 24" width="20" height="20">
                             <path fill="currentColor" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
                         </svg>
@@ -196,36 +187,47 @@
                         <img src="victory_trophy.png" alt="גביע הניצחון" class="finish-img">
                     </div>
 
-                    <h2 id="finish-title" class="finish-title">כל הכבוד! הגעת ליעד!</h2>
+                    <h2 id="finish-title" class="finish-title">כל הכבוד! סיימת את הסימולציה</h2>
                     <p class="finish-text">
-                        השלמת את הטיפול בהצלחה. בוא נראה איך הנתונים המטבוליים שלך נראים:
+                        הנה סיכום ההישגים והתוצאות שלך בסימולציה:
                     </p>
 
-                    <!-- Score Card Grid -->
+                    <!-- Relative Score Card (out of 100%) -->
+                    <div class="score-relative-card">
+                        <span class="score-sub-label">הציון הסופי שלך בסימולציה</span>
+                        <div class="score-main-row">
+                            <span id="final-percentage" class="score-percentage">100%</span>
+                        </div>
+                        <span id="final-ratio-text" class="score-ratio">ענית נכון על 7 מתוך 7 שאלות</span>
+                    </div>
+
+                    <!-- Finish Code Card (for raffle) -->
                     <div class="finish-code-card">
                         <span class="code-label">קוד סיום האתגר שלך:</span>
                         <span id="finish-code-val" class="code-value">GLP1</span>
                         <p class="code-instructions">שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס</p>
                     </div>
 
-                    <div class="score-grid">
-                        <div class="score-card full-width">
-                            <div id="final-emoji-1" class="score-emoji">📊</div>
-                            <span id="final-metric-1-lbl" class="score-label">שאלות שענית עליהן נכון</span>
-                            <span id="final-muscle" class="score-number text-purple" dir="ltr">7 / 7</span>
+                    <!-- Comprehensive Review of All Questions & Explanations -->
+                    <div class="review-section">
+                        <h3 class="review-header">
+                            <span>📖 הסבר ופירוט התשובות לכל השאלות</span>
+                        </h3>
+                        <div id="questions-review-list" class="review-list">
+                            <!-- Populated dynamically via JS -->
                         </div>
                     </div>
 
                     <!-- Expert Advice Summary -->
-                    <div class="advice-panel">
-                        <h4>טיפ זהב להמשך הדרך:</h4>
+                    <div class="advice-panel" style="margin-top: 24px;">
+                        <h4>טיפ זהב לסיכום:</h4>
                         <p id="advice-text">
                             כדי לשמור על ההישגים לאורך זמן תחת טיפול ב-GLP1-RA, הקפד/י על ביצוע לפחות שני אימוני כוח בשבוע וצריכת חלבון מספקת בכל ארוחה.
                         </p>
                     </div>
 
-                    <button id="restart-game-btn" class="btn btn-primary">
-                        <span>שחק שוב</span>
+                    <button id="restart-game-btn" class="btn btn-primary" style="margin-top: 20px;">
+                        <span>הפעל סימולציה מחדש</span>
                         <svg viewBox="0 0 24 24" width="20" height="20">
                             <path fill="currentColor" d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
                         </svg>

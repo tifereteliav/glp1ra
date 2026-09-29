@@ -1,6 +1,6 @@
-// GLP-1 MUSCLE DEFENDER - GAME LOGIC
+// GLP-1 MUSCLE DEFENDER - SIMULATION LOGIC
 
-// Game Questions Database (7 Questions Sequential Flow)
+// Game Questions Database with Clinical Explanations
 const questions = [
     {
         text: "מה מההיגדים הבאים לגבי הקשר בין בריאות השריר לסינדרום המטבולי נכון?",
@@ -10,7 +10,8 @@ const questions = [
             "ג. לא ניתן למנוע איבוד מסת שריר משני לטיפול הנ\"ל",
             "ד. בקשישים אין משמעות קלינית לירידה במסת השריר"
         ],
-        correctIndex: 1 // Option B
+        correctIndex: 1, // Option B
+        explanation: "טיפול ב-GLP1-RA מוביל לירידה משמעותית במשקל, אך כחלק מכך עלול להתרחש איבוד של מסת שריר רזה. לכן נדרשת התערבות מונעת הכוללת תזונה עשירה בחלבון ואימוני כוח כדי לשמר מסת שריר חיונית."
     },
     {
         text: "מה מהאסטרטגיות הבאות יכולה למנוע איבוד מסת שריר במקביל לירידה במשקל?",
@@ -20,7 +21,8 @@ const questions = [
             "ג. התערבויות פרמקולוגיות",
             "ד. כל התשובות נכונות"
         ],
-        correctIndex: 3 // Option D
+        correctIndex: 3, // Option D
+        explanation: "כל התשובות נכונות! שמירה על מסת שריר דורשת גישה רב-תחומית ומשולבת: צריכת חלבון מספקת, ביצוע אימוני התנגדות סדירים, והתערבויות רפואיות/פרמקולוגיות תומכות במידת הצורך."
     },
     {
         text: "מהי כמות החלבון היומית המומלצת למניעת איבוד שריר בזמן טיפול ב-GLP1-RA?",
@@ -30,7 +32,8 @@ const questions = [
             "ג. אין צורך בחלבון כלל, פחמימות בלבד מונעות פירוק שריר",
             "ד. מספיק לאכול ארוחת חלבון אחת לשבוע"
         ],
-        correctIndex: 1 // Option B
+        correctIndex: 1, // Option B
+        explanation: "הכמות המומלצת היא כ-1.2 עד 1.5 גרם לכל ק\"ג משקל גוף ליום. בעת גרעון קלורי וירידה מהירה במשקל, כמות זו הכרחית כדי לספק חומצות אמינו לשימור ולבניית רקמת השריר ולמניעת סרקופניה."
     },
     {
         text: "איזה סוג של אימון גופני הוא החיוני ביותר להגנה על השריר מפני פירוק בעקבות ירידה מהירה במשקל?",
@@ -40,7 +43,8 @@ const questions = [
             "ג. מתיחות קלות בלבד פעם בשבועיים",
             "ד. הליכה של 5 דקות בלבד פעם ביומיים"
         ],
-        correctIndex: 0 // Option A
+        correctIndex: 0, // Option A
+        explanation: "אימוני התנגדות וכוח לפחות פעמיים בשבוע הם היעילים ביותר למניעת פירוק שריר, שכן הם יוצרים גירוי מכני ישיר המאותת לגוף לשמר את רקמת השריר גם במהלך ירידה קלורית במשקל."
     },
     {
         text: "הטיפול במונג'רו בחולי סוכרת הביא במקביל לירידה בכל הבאים פרט ל:",
@@ -51,7 +55,8 @@ const questions = [
             "ד. לחץ דם סיסטולי"
         ],
         correctIndex: 2, // Option C (HDL כולסטרול)
-        difficulty: "זהירות, שאלה של אנדוקרינולוגים 🔬"
+        difficulty: "זהירות, שאלה של אנדוקרינולוגים 🔬",
+        explanation: "התשובה היא HDL כולסטרול! הטיפול במונג'רו מביא לירידה ברמות הסוכר, לחץ דם סיסטולי, לחץ דם דיאסטולי ו-LDL (הכולסטרול הרע). לעומת זאת, רמות ה-HDL (הכולסטרול הטוב) אינן יורדות ואף נוטות לעלות."
     },
     {
         text: "בהשוואה (בלתי ישירה) של מחקרי SURPASS של מונג'רו בחולי סוכרת לעומת מחקרי SURMOUNT של מונג'רו באנשים החיים עם השמנה ללא סוכרת, הירידה במשקל בקרב חולי הסוכרת היתה:",
@@ -62,7 +67,8 @@ const questions = [
             "ד. לא ניתן להשוות"
         ],
         correctIndex: 0, // Option A
-        difficulty: "קושי: פרופסור מטבולי 🧠"
+        difficulty: "קושי: פרופסור מטבולי 🧠",
+        explanation: "הירידה במשקל בקרב חולי סוכרת (SURPASS) הייתה קטנה יותר בהשוואה לאנשים ללא סוכרת (SURMOUNT). חולי סוכרת סוג 2 מתאפיינים בעמידות מורכבת לאינסולין ובשינויים מטבוליים המקשים על ירידה במשקל בהשוואה לאוכלוסייה ללא סוכרת."
     },
     {
         text: "מחקר SURMOUNT-OSA מצא שיפור ב-Apnea Hypopnea Index (מדד דום נשימה בשינה) בקרב איזו אוכלוסייה?",
@@ -73,7 +79,8 @@ const questions = [
             "ד. אף אחד מהנ\"ל"
         ],
         correctIndex: 2, // Option C (שניהם)
-        difficulty: "שאלה למומחי שינה 😴"
+        difficulty: "שאלה למומחי שינה 😴",
+        explanation: "השיפור נצפה בשתי האוכלוסיות (שניהם)! מחקר SURMOUNT-OSA הדגים ירידה משמעותית ומובהקת במדד ה-AHI הן בקרב מטופלים שהשתמשו במכשיר PAP והן בקרב מטופלים שלא השתמשו ב-PAP."
     }
 ];
 
@@ -90,13 +97,15 @@ const avatarNames = {
     science: 'חוקר המטבוליזם'
 };
 
-// Game State variables
+// Simulation State
 let state = {
-    muscleMass: 100,
     currentQuestionIndex: 0,
     selectedAvatar: 'protein',
-    selectedOptionIndex: null, // Tracks currently selected answer before submitting
-    answersCorrect: 0
+    feedbackMode: 'instant', // 'instant' | 'summary'
+    selectedOptionIndex: null,
+    questionChecked: false, // In instant mode: whether answer was revealed
+    answersCorrect: 0,
+    userAnswers: [] // Stores chosen option index for each question
 };
 
 // Sound synthesizer using Web Audio API
@@ -121,6 +130,22 @@ function playSound(type) {
         gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
         osc.start(now);
         osc.stop(now + 0.12);
+    } else if (type === 'success') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.1);
+        gainNode.gain.setValueAtTime(0.15, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now);
+        osc.stop(now + 0.3);
+    } else if (type === 'error') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.35);
+        gainNode.gain.setValueAtTime(0.14, now);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.start(now);
+        osc.stop(now + 0.35);
     } else if (type === 'complete') {
         osc.type = 'sine';
         const notes = [523.25, 659.25, 783.99, 1046.50];
@@ -139,7 +164,6 @@ function playSound(type) {
 }
 
 // UI Screens Cache
-const passcodeScreen = document.getElementById("passcode-screen");
 const startScreen = document.getElementById("start-screen");
 const gameScreen = document.getElementById("game-screen");
 const finishScreen = document.getElementById("finish-screen");
@@ -159,6 +183,8 @@ const feedbackPanel = document.getElementById("feedback-panel");
 const feedbackTitle = document.getElementById("feedback-title");
 const feedbackDesc = document.getElementById("feedback-desc");
 const feedbackIcon = document.getElementById("feedback-icon");
+const nextQuestionBtn = document.getElementById("next-question-btn");
+const nextBtnSpan = nextQuestionBtn.querySelector("span");
 
 const infoModal = document.getElementById("info-modal");
 
@@ -237,9 +263,9 @@ function updateHUD() {
     challengeProgressVal.textContent = `שאלה ${state.currentQuestionIndex + 1} מתוך ${totalQuestions}`;
 }
 
-// Transition helper
+// Screen transition helper
 function showScreen(screenToShow) {
-    [passcodeScreen, startScreen, gameScreen, finishScreen].forEach(s => {
+    [startScreen, gameScreen, finishScreen].forEach(s => {
         s.classList.remove('active');
         s.classList.add('hidden');
     });
@@ -248,6 +274,15 @@ function showScreen(screenToShow) {
         screenToShow.classList.add('active');
     }, 50);
 }
+
+// Feedback Mode Selection Logic
+document.querySelectorAll(".mode-card").forEach(card => {
+    card.addEventListener("click", () => {
+        document.querySelectorAll(".mode-card").forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        state.feedbackMode = card.dataset.mode;
+    });
+});
 
 // Avatar selection UI logic
 document.querySelectorAll(".avatar-card").forEach(card => {
@@ -258,35 +293,13 @@ document.querySelectorAll(".avatar-card").forEach(card => {
     });
 });
 
-// VERIFY PASSCODE
-document.getElementById("verify-passcode-btn").addEventListener("click", () => {
-    const passcodeVal = document.getElementById("passcode-input").value.trim();
-    const errorEl = document.getElementById("passcode-error");
-    const inputEl = document.getElementById("passcode-input");
-    
-    if (passcodeVal !== "5656") {
-        errorEl.classList.remove("hidden");
-        inputEl.style.borderColor = "var(--red)";
-        inputEl.style.boxShadow = "0 0 15px var(--red-glow)";
-        inputEl.classList.add("shake");
-        setTimeout(() => inputEl.classList.remove("shake"), 500);
-        return;
-    }
-    
-    errorEl.classList.add("hidden");
-    inputEl.style.borderColor = "var(--border-color)";
-    inputEl.style.boxShadow = "none";
-    inputEl.value = ""; 
-
-    playSound('select');
-    showScreen(startScreen);
-});
-
-// START GAME
+// START SIMULATION
 document.getElementById("start-game-btn").addEventListener("click", () => {
     state.currentQuestionIndex = 0;
     state.answersCorrect = 0;
     state.selectedOptionIndex = null;
+    state.questionChecked = false;
+    state.userAnswers = new Array(questions.length).fill(null);
 
     activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
     activeAvatarEmoji.className = "avatar-reaction-emoji";
@@ -301,13 +314,15 @@ document.getElementById("start-game-btn").addEventListener("click", () => {
 // LOAD QUESTION
 function loadQuestion(index) {
     const q = questions[index];
-    state.selectedOptionIndex = null; // Reset selection
+    state.selectedOptionIndex = null;
+    state.questionChecked = false;
 
     questionIndexBadge.textContent = `שאלה ${index + 1} מתוך ${questions.length}`;
     questionText.textContent = q.text;
     feedbackPanel.classList.add('hidden');
     
     activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].normal;
+    activeAvatarEmoji.className = "avatar-reaction-emoji";
 
     if (q.difficulty) {
         difficultyBadge.textContent = q.difficulty;
@@ -316,15 +331,15 @@ function loadQuestion(index) {
         difficultyBadge.classList.add("hidden");
     }
 
-    // Set correct title text for next question/finish question button
-    const nextBtnText = document.querySelector("#next-question-btn span");
-    if (index === questions.length - 1) {
-        nextBtnText.textContent = "סיים את האתגר";
+    // Set initial button text based on mode
+    const isLast = (index === questions.length - 1);
+    if (state.feedbackMode === 'instant') {
+        nextBtnSpan.textContent = "בדוק תשובה";
     } else {
-        nextBtnText.textContent = "המשך לשאלה הבאה";
+        nextBtnSpan.textContent = isLast ? "לסיום הסימולציה" : "המשך לשאלה הבאה";
     }
 
-    // Clear and build options
+    // Build options
     optionsContainer.innerHTML = '';
     
     q.options.forEach((optText, idx) => {
@@ -348,13 +363,17 @@ function loadQuestion(index) {
     });
 }
 
-// HANDLE OPTION SELECT (Does NOT submit, allows changing selection)
+// HANDLE OPTION SELECT
 function handleSelectOption(selectedIndex) {
+    // If already checked in instant mode, do not allow changing
+    if (state.feedbackMode === 'instant' && state.questionChecked) {
+        return;
+    }
+
     state.selectedOptionIndex = selectedIndex;
-    
     playSound('select');
 
-    // Highlight the selected option only
+    // Highlight selected option
     const optionButtons = document.querySelectorAll(".option-btn");
     optionButtons.forEach((btn, idx) => {
         if (idx === selectedIndex) {
@@ -363,93 +382,215 @@ function handleSelectOption(selectedIndex) {
             btn.classList.remove("selected");
         }
     });
-    
-    // Slide up the panel to allow confirmation and next step
-    feedbackTitle.textContent = "הבחירה שלך סומנה! 📥";
-    feedbackTitle.style.color = "var(--purple)";
-    feedbackIcon.textContent = "📝";
-    feedbackDesc.innerHTML = "ניתן לשנות את התשובה על ידי לחיצה על אפשרות אחרת,<br>או ללחוץ על הכפתור כדי להתקדם.";
+
+    const isLast = (state.currentQuestionIndex === questions.length - 1);
+
+    if (state.feedbackMode === 'instant') {
+        // Instant Mode: Prompt user to check answer
+        feedbackTitle.textContent = "הבחירה שלך סומנה ✍️";
+        feedbackTitle.style.color = "var(--purple)";
+        feedbackIcon.textContent = "🎯";
+        feedbackDesc.innerHTML = "ניתן לשנות את הבחירה, או ללחוץ על <strong>'בדוק תשובה'</strong> לקבלת משוב והסבר קליני.";
+        nextBtnSpan.textContent = "בדוק תשובה";
+    } else {
+        // Summary Mode: User can change anytime, advances on click
+        feedbackTitle.textContent = "הבחירה שלך סומנה 📥";
+        feedbackTitle.style.color = "var(--purple)";
+        feedbackIcon.textContent = "📝";
+        feedbackDesc.innerHTML = "ניתן לשנות את התשובה או ללחוץ על הכפתור כדי להמשיך הלאה.<br>(התשובות וההסברים המלאים יוצגו בסיום הסימולציה).";
+        nextBtnSpan.textContent = isLast ? "לסיום הסימולציה" : "המשך לשאלה הבאה";
+    }
     
     feedbackPanel.classList.remove('hidden');
 }
 
-// SUBMIT SELECTION AND GO NEXT
-document.getElementById("next-question-btn").addEventListener("click", () => {
-    if (state.selectedOptionIndex === null) return; // Prevent clicking if nothing is selected
+// ACTION BUTTON CLICK (בדוק תשובה / המשך לשאלה הבאה)
+nextQuestionBtn.addEventListener("click", () => {
+    if (state.selectedOptionIndex === null) return;
 
-    // Score the question privately
     const q = questions[state.currentQuestionIndex];
-    if (state.selectedOptionIndex === q.correctIndex) {
-        state.answersCorrect++;
-    }
+    const isLast = (state.currentQuestionIndex === questions.length - 1);
+    const optionButtons = document.querySelectorAll(".option-btn");
 
-    // Go next
+    if (state.feedbackMode === 'instant') {
+        if (!state.questionChecked) {
+            // STEP 1: EVALUATE & REVEAL EXPLANATION
+            state.questionChecked = true;
+            state.userAnswers[state.currentQuestionIndex] = state.selectedOptionIndex;
+            const isCorrect = (state.selectedOptionIndex === q.correctIndex);
+
+            optionButtons.forEach(btn => btn.disabled = true);
+
+            if (isCorrect) {
+                state.answersCorrect++;
+                playSound('success');
+                activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].correct;
+                activeAvatarEmoji.classList.add("excited");
+
+                optionButtons[state.selectedOptionIndex].classList.remove("selected");
+                optionButtons[state.selectedOptionIndex].classList.add("correct");
+
+                feedbackTitle.textContent = "נכון מאוד! 🎉";
+                feedbackTitle.style.color = "var(--green)";
+                feedbackIcon.textContent = "🛡️";
+                feedbackDesc.innerHTML = q.explanation;
+            } else {
+                playSound('error');
+                activeAvatarEmoji.textContent = avatarEmojis[state.selectedAvatar].incorrect;
+
+                optionButtons[state.selectedOptionIndex].classList.remove("selected");
+                optionButtons[state.selectedOptionIndex].classList.add("incorrect");
+                optionButtons[q.correctIndex].classList.add("correct");
+
+                feedbackTitle.textContent = "לא מדויק ⚠️";
+                feedbackTitle.style.color = "var(--red)";
+                feedbackIcon.textContent = "💡";
+                feedbackDesc.innerHTML = `<strong>התשובה הנכונה היא: ${q.options[q.correctIndex]}</strong><br><br>${q.explanation}`;
+            }
+
+            nextBtnSpan.textContent = isLast ? "לסיום הסימולציה" : "המשך לשאלה הבאה";
+            return;
+        } else {
+            // STEP 2: ADVANCE TO NEXT QUESTION
+            advanceQuestion();
+        }
+    } else {
+        // Summary Mode: Record answer silently and advance immediately
+        state.userAnswers[state.currentQuestionIndex] = state.selectedOptionIndex;
+        if (state.selectedOptionIndex === q.correctIndex) {
+            state.answersCorrect++;
+        }
+        advanceQuestion();
+    }
+});
+
+// Advance to next question or finish
+function advanceQuestion() {
     state.currentQuestionIndex++;
     
     if (state.currentQuestionIndex < questions.length) {
-        // Update HUD progress bar based on questions answered
-        const totalQuestions = questions.length;
-        const progressPercent = Math.round((state.currentQuestionIndex / totalQuestions) * 100);
-        challengeProgressBar.style.width = `${progressPercent}%`;
-
+        updateHUD();
         loadQuestion(state.currentQuestionIndex);
     } else {
         finishGame();
     }
-});
+}
 
 // FINISH GAME
 function finishGame() {
     dashboard.classList.add('hidden');
     showScreen(finishScreen);
     
-    document.getElementById("final-muscle").textContent = `${state.answersCorrect} / ${questions.length}`;
+    const totalQuestions = questions.length;
+    const percentage = Math.round((state.answersCorrect / totalQuestions) * 100);
     
+    // Relative Score Displays
+    const finalPercentageEl = document.getElementById("final-percentage");
+    const finalRatioEl = document.getElementById("final-ratio-text");
+    
+    finalPercentageEl.textContent = `${percentage}%`;
+    finalRatioEl.textContent = `ענית נכון על ${state.answersCorrect} מתוך ${totalQuestions} שאלות (${percentage}%)`;
+    
+    // Set color accent based on score
+    if (percentage >= 85) {
+        finalPercentageEl.style.background = "linear-gradient(135deg, #10b981 0%, #34d399 100%)";
+    } else if (percentage >= 60) {
+        finalPercentageEl.style.background = "linear-gradient(135deg, #a855f7 0%, #10b981 100%)";
+    } else {
+        finalPercentageEl.style.background = "linear-gradient(135deg, #f97316 0%, #ef4444 100%)";
+    }
+    finalPercentageEl.style.webkitBackgroundClip = "text";
+    finalPercentageEl.style.webkitTextFillColor = "transparent";
+
+    // Raffle Code Card
     const codeEl = document.getElementById("finish-code-val");
     const codeInstructionsEl = document.querySelector(".code-instructions");
     
-    if (state.answersCorrect === questions.length) {
+    if (state.answersCorrect === totalQuestions) {
         codeEl.textContent = "GLP1";
         codeEl.style.textShadow = "0 0 25px rgba(16, 185, 129, 0.5), 0 0 45px var(--green)";
-        codeInstructionsEl.textContent = "מדהים! ענית נכון על כל 7 השאלות! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
+        codeInstructionsEl.textContent = "מושלם! 100% הצלחה! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
         codeInstructionsEl.style.color = "var(--green)";
     } else {
         codeEl.textContent = "muscle";
         codeEl.style.textShadow = "0 0 25px rgba(249, 115, 22, 0.5), 0 0 45px var(--orange)";
-        codeInstructionsEl.textContent = "השלמת את האתגר! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
+        codeInstructionsEl.textContent = "השלמת את הסימולציה! שמור/י קוד זה על מנת להכניס אותו לטופס ההגרלה לפרסי הכנס.";
         codeInstructionsEl.style.color = "var(--orange)";
     }
     
-    const adviceEl = document.getElementById("advice-text");
-    adviceEl.innerHTML = `<strong>סיכום אתגר:</strong> כדי לשמור על בריאות מטבולית אופטימלית תחת טיפול ב-GLP1-RA, יש להקפיד על צריכת חלבון מספקת (1.2-1.5 גרם לק"ג), ביצוע אימוני כוח לפחות פעמיים בשבוע, והבנת ההשפעות הרב-מערכתיות של המולקולות (שיפור בפרופיל השומנים עם עליית HDL והטבה בדום נשימה בשינה).`;
-    
+    // Dynamic Comprehensive Review of Questions and Explanations
+    const reviewListContainer = document.getElementById("questions-review-list");
+    reviewListContainer.innerHTML = '';
+
+    questions.forEach((q, idx) => {
+        const userPick = state.userAnswers[idx];
+        const isCorrect = (userPick === q.correctIndex);
+
+        const card = document.createElement("div");
+        card.className = `review-card ${isCorrect ? 'correct-card' : 'incorrect-card'}`;
+
+        const topBar = document.createElement("div");
+        topBar.className = "review-top-bar";
+
+        const qNum = document.createElement("span");
+        qNum.className = "review-q-num";
+        qNum.textContent = `שאלה ${idx + 1} מתוך ${totalQuestions}`;
+
+        const badge = document.createElement("span");
+        badge.className = `review-badge ${isCorrect ? 'correct' : 'incorrect'}`;
+        badge.textContent = isCorrect ? "תשובה נכונה ✅" : "תשובה שגויה ❌";
+
+        topBar.appendChild(qNum);
+        topBar.appendChild(badge);
+
+        const qTitle = document.createElement("div");
+        qTitle.className = "review-q-text";
+        qTitle.textContent = q.text;
+
+        const userPickRow = document.createElement("div");
+        userPickRow.className = `review-ans-row ${isCorrect ? 'correct-pick' : 'user-pick'}`;
+        const userChoiceText = userPick !== null && userPick !== undefined ? q.options[userPick] : "לא סומנה תשובה";
+        userPickRow.innerHTML = `<strong>התשובה שבחרת:</strong> ${userChoiceText}`;
+
+        card.appendChild(topBar);
+        card.appendChild(qTitle);
+        card.appendChild(userPickRow);
+
+        if (!isCorrect) {
+            const correctRow = document.createElement("div");
+            correctRow.className = "review-ans-row correct-pick";
+            correctRow.innerHTML = `<strong>התשובה הנכונה:</strong> ${q.options[q.correctIndex]}`;
+            card.appendChild(correctRow);
+        }
+
+        const explanationDiv = document.createElement("div");
+        explanationDiv.className = "review-explanation";
+        explanationDiv.innerHTML = `<strong>💡 הסבר קליני:</strong> ${q.explanation}`;
+        card.appendChild(explanationDiv);
+
+        reviewListContainer.appendChild(card);
+    });
+
     playSound('complete');
     startConfetti();
 }
 
-// RESTART GAME (Lock back to passcode screen)
+// RESTART SIMULATION
 document.getElementById("restart-game-btn").addEventListener("click", () => {
     stopConfetti();
-    showScreen(passcodeScreen);
+    showScreen(startScreen);
 });
 
 // MODAL WINDOW CONTROL
 const infoModalText = document.querySelector("#info-modal .modal-body");
 if (infoModalText) {
     infoModalText.innerHTML = `
-        <p><strong>איך משחקים?</strong></p>
+        <p><strong>איך מתבצעת הסימולציה?</strong></p>
         <ul>
-            <li>עליך להכניס את קוד הכניסה <strong>5656</strong> בשער הכניסה כדי לפתוח את האתגר.</li>
-            <li>במסך הבא, בחר/י את הגיבור/ה המטבולי/ת שלך.</li>
-            <li>ענה/י על 7 שאלות מטבוליות וקליניות ברצף.</li>
-            <li><strong>ניתן לשנות את בחירתך כל עוד לא לחצת על כפתור ההמשך!</strong></li>
-            <li>התשובות יישמרו במערכת ולא ייחשפו במהלך המשחק (כדי לשמור על המתח!).</li>
-            <li>בסיום תקבל/י קוד המבוסס על רמת ההצלחה שלך.</li>
+            <li>במסך הפתיחה תוכלו לבחור את אופן קבלת המשוב: <strong>משוב מיידי</strong> אחרי כל שאלה, או <strong>משוב מרוכז</strong> בסיום.</li>
+            <li>עונים על 7 שאלות קליניות ומטבוליות בנושא טיפול ב-GLP1 ושמירה על מסת שריר.</li>
+            <li>בסיום הסימולציה מקבלים ציון יחסי מתוך 100%, קוד הגרלה לכנס, ופירוט מלא של כל התשובות וההסברים הרפואיים.</li>
         </ul>
-        <p><strong>חלוקת פרסים:</strong></p>
-        <p>
-            תוצאה מושלמת (7/7) תעניק לך את קוד העל <strong>GLP1</strong>. כל תוצאה אחרת תעניק את קוד המגן <strong>muscle</strong>.
-        </p>
     `;
 }
 
